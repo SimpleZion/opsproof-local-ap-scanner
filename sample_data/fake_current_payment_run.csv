@@ -1,0 +1,13 @@
+payment_batch_id,payment_id,vendor_name,invoice_number,invoice_date,amount,currency,payment_status,memo
+BATCH-2026-05-03,RUN-001,Acme Office Supplies,INV-8841,2026-04-24,1280.00,USD,scheduled,monthly supplies
+BATCH-2026-05-03,RUN-002,Northstar Logistics,NS-2207,2026-04-18,2450.00,USD,scheduled,freight invoice
+BATCH-2026-05-03,RUN-003,Lakeside Cleaning,LC-510,2026-04-20,875.00,USD,scheduled,cleaning service
+BATCH-2026-05-03,RUN-004,BluePeak Software,BP-998,2026-04-16,399.00,USD,scheduled,monthly software renewal
+BATCH-2026-05-03,RUN-005,BluePeak Software LLC,BP-998,2026-04-16,399.00,USD,scheduled,duplicate row from import
+BATCH-2026-05-03,RUN-006,Prime Electrical Services,PE-7730,2026-04-25,5210.00,USD,scheduled,site repair
+BATCH-2026-05-03,RUN-007,GreenField Packaging,GF-4210,2026-04-27,1600.00,USD,scheduled,packaging order
+BATCH-2026-05-03,RUN-008,Harbor Telecom,HT-2026-04,2026-04-12,640.00,USD,scheduled,telecom service
+BATCH-2026-05-03,RUN-009,ACME Office Supply Co.,INV8841,2026-04-24,1280.00,USD,scheduled,resubmitted invoice
+BATCH-2026-05-03,RUN-010,Summit Office Chairs,SO-110,2026-04-28,3100.00,USD,scheduled,new chair order
+BATCH-2026-05-03,RUN-011,Metro Catering,MC-778,2026-04-19,920.00,USD,scheduled,event catering
+BATCH-2026-05-03,RUN-012,Metro Catering Services,MC778-R,2026-04-19,920.00,USD,scheduled,revised catering invoice

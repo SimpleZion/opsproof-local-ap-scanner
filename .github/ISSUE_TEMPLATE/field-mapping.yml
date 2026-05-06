@@ -1,0 +1,23 @@
+name: Field mapping question
+description: Ask about AP export headers without sharing private finance data.
+title: "[field mapping] "
+labels: ["field-mapping"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not paste private finance, supplier, bank, tax, payroll, customer, or payment-card data. Header-only or fake rows are enough.
+  - type: textarea
+    id: headers
+    attributes:
+      label: Headers or fake rows
+      description: Paste header-only CSV or fake rows.
+      placeholder: supplier_name,invoice_number,amount,invoice_date,payment_id,status
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: false

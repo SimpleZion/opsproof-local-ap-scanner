@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Duplicate Payment Risk Scanner Demo</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none';">
+  <meta name="description" content="Local browser duplicate-payment risk scanner demo with explainable ML-assisted anomaly signals for fake, pasted, or locally selected AP CSV payment runs. No cloud upload or Python setup is needed for the first path.">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css?v=202605061930">
+</head>
+<body>
+  <a class="skip-link" href="#scanner">Skip to scanner</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">DP</span>
+      <div>
+        <strong>Duplicate Payment Risk Scanner</strong>
+        <small>Local browser demo</small>
+      </div>
+    </div>
+    <nav aria-label="Page sections">
+      <a href="#scanner">Run</a>
+      <a href="#header-check">Header check</a>
+      <a href="#results">Results</a>
+      <a href="./sample_output/sample_duplicate_payment_risk_report.html">Sample report</a>
+      <a href="#next-step">Next step</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#rules">Rules</a>
+    </nav>
+    <div class="language-switch" aria-label="Language switch">
+      <button type="button" data-language="en" aria-pressed="true">EN</button>
+      <button type="button" data-language="zh" aria-pressed="false">中文</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="scanner" class="workspace">
+      <div class="workspace-header">
+        <div>
+          <h1>View the sample report first. Then run a local AP CSV check.</h1>
+          <p>Start with the public fake-data report, then load the fake sample or choose local CSVs in this browser. The scanner maps common AP fields, builds HOLD / REVIEW / CLEAR, adds explainable local ML-assisted anomaly signals, and enables downloadable CSV and HTML reports without Python or cloud upload.</p>
+          <button class="button primary mobile-hero-run" type="button" id="mobile-load-all-samples">Load fake samples and run</button>
+        </div>
+        <div class="privacy-card" id="privacy">
+          <span>Local-first boundary</span>
+          <strong id="privacy-status">CSV scan is designed to run in this browser</strong>
+          <p>Inputs are parsed in this static page. No ERP login, bank connection, account login, or cloud upload is needed for the scanner workflow. Use fake or redacted rows first.</p>
+          <dl>
+            <div><dt>Blocked API attempts</dt><dd id="network-attempts">0</dd></div>
+            <div><dt>Storage writes</dt><dd>0</dd></div>
+            <div><dt>Runtime</dt><dd>Static file</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="buyer-proof-path" aria-label="Recommended buyer path before setup">
+        <strong>Non-technical buyer path</strong>
+        <a href="./sample_output/sample_duplicate_payment_risk_report.html">1. View public sample report</a>
+        <a href="https://payhip.com/b/6UYfe">2. Download free proof pack</a>
+        <a href="https://tools.simplezion.com/setup-service/">3. Preview setup only if mapping is unclear</a>
+      </div>
+
+      <div class="notice">
+        <strong>CSV-first and local-first.</strong>
+        Export spreadsheet tabs to CSV, then paste, click-select, or drag the CSV here. The demo is a static browser workflow; start with fake or redacted data before private AP files.
+      </div>
+
+      <div class="quick-sample-panel" aria-label="Fast sample scanner path">
+        <div>
+          <strong>Fastest proof path: sample report -> fake sample -> queue</strong>
+          <span>Inspect the public fake-data report first, then load bundled fake CSVs and run the scanner. No account, ERP login, bank connection, cloud upload, or Python step is needed.</span>
+        </div>
+        <div class="quick-proof-actions">
+          <a class="button primary" href="./sample_output/sample_duplicate_payment_risk_report.html">View public sample report</a>
+          <button class="button secondary" type="button" id="load-all-samples">Load fake samples and run</button>
+        </div>
+      </div>
+
+      <div class="process-strip" aria-label="Three minute scanner flow">
+        <div><strong>1</strong><span>Load fake sample or drag CSV</span></div>
+        <div><strong>2</strong><span>Generate HOLD / REVIEW / CLEAR</span></div>
+        <div><strong>3</strong><span>Download CSV or HTML report</span></div>
+      </div>
+
+      <section id="header-check" class="header-check-panel" aria-label="Header-only readiness check">
+        <div>
+          <span class="section-kicker">Header-only first step</span>
+          <h2>Paste export headers before sharing any AP rows.</h2>
+          <p>Check which duplicate-payment rules can run from column names alone. This is designed for QuickBooks, Xero, BILL, ERP, bank, or spreadsheet exports when you are not ready to paste private payment data.</p>
+        </div>
+        <div class="header-check-workbench">
+          <textarea id="header-input" spellcheck="false" wrap="off" placeholder="vendor_name,invoice_number,amount,invoice_date,payment_id,status"></textarea>
+          <div class="header-check-actions">
+            <button class="button secondary" type="button" id="load-header-sample">Load sample headers</button>
+            <button class="button primary" type="button" id="run-header-check">Check rule readiness</button>
+          </div>
+          <div class="readiness-output" id="header-readiness-output">Paste headers to see ready, partial, and blocked rules.</div>
+        </div>
+      </section>
+
+      <div class="input-grid">
+        <section class="input-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>1. Current payment run</h2>
+              <p>Required. Include vendor/payee, invoice number, amount, date, and any payment id or status columns you have.</p>
+            </div>
+            <button class="button secondary" type="button" id="load-current-sample">Load sample</button>
+          </div>
+          <div class="file-drop">
+            <label for="current-file" class="file-label">Drop or choose current-run CSV</label>
+            <input id="current-file" type="file" accept=".csv,text/csv">
+            <span>Required input for the scan.</span>
+          </div>
+          <label for="current-input">Or paste CSV</label>
+          <textarea id="current-input" spellcheck="false" wrap="off" placeholder="vendor_name,invoice_number,amount,invoice_date,payment_id,status"></textarea>
+        </section>
+
+        <section class="input-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>2. Paid history</h2>
+              <p>Optional. Paid invoices make the historical paid comparison rule useful.</p>
+            </div>
+            <button class="button secondary" type="button" id="load-history-sample">Load sample</button>
+          </div>
+          <div class="file-drop">
+            <label for="history-file" class="file-label">Drop or choose paid-history CSV</label>
+            <input id="history-file" type="file" accept=".csv,text/csv">
+            <span>Optional, but improves already-paid checks.</span>
+          </div>
+          <label for="history-input">Or paste CSV</label>
+          <textarea id="history-input" spellcheck="false" wrap="off" placeholder="payee,invoice_no,amount,paid_date,payment_reference,payment_status"></textarea>
+        </section>
+
+        <section class="input-panel">
+          <div class="panel-heading">
+            <div>
+              <h2>3. Vendor aliases</h2>
+              <p>Optional. Two columns are enough: alias, canonical_vendor.</p>
+            </div>
+            <button class="button secondary" type="button" id="load-alias-sample">Load sample</button>
+          </div>
+          <div class="file-drop">
+            <label for="alias-file" class="file-label">Drop or choose vendor-alias CSV</label>
+            <input id="alias-file" type="file" accept=".csv,text/csv">
+            <span>Optional two-column alias map.</span>
+          </div>
+          <label for="alias-input">Or paste CSV</label>
+          <textarea id="alias-input" spellcheck="false" wrap="off" placeholder="alias,canonical_vendor"></textarea>
+        </section>
+      </div>
+
+      <div class="action-row">
+        <button class="button primary" type="button" id="run-scan">Run risk scan</button>
+        <button class="button ghost" type="button" id="clear-all">Clear</button>
+        <span id="scan-message" role="status">Waiting for fake sample or current payment-run CSV.</span>
+      </div>
+    </section>
+
+    <section id="results" class="results-section" aria-live="polite">
+      <div class="summary-grid">
+        <article class="score-card">
+          <span>Overall run risk</span>
+          <strong id="overall-risk">0</strong>
+          <p id="overall-copy">Run the scanner to see queue counts and top reasons.</p>
+        </article>
+        <article class="metric hold">
+          <span>HOLD</span>
+          <strong id="hold-count">0</strong>
+          <p>Pause before payment.</p>
+        </article>
+        <article class="metric review">
+          <span>REVIEW</span>
+          <strong id="review-count">0</strong>
+          <p>Needs AP confirmation.</p>
+        </article>
+        <article class="metric pass">
+          <span>CLEAR</span>
+          <strong id="pass-count">0</strong>
+          <p>No duplicate-payment risk found.</p>
+        </article>
+      </div>
+
+      <div class="result-decision-card" id="result-decision-card" data-status="not_run">
+        <div>
+          <span id="result-decision-label">Recommended buyer action</span>
+          <strong id="result-decision-title">Run the fake sample first.</strong>
+          <p id="result-decision-summary">The scanner will recommend free proof pack, USD49 self-serve bundle, USD149 setup, or do not buy yet.</p>
+        </div>
+        <div class="result-decision-actions">
+          <a class="button secondary" id="result-decision-primary" href="./sample_output/sample_duplicate_payment_risk_report.html">View sample report</a>
+          <a class="button ghost" id="result-decision-secondary" href="https://payhip.com/b/6UYfe">Download free proof pack</a>
+        </div>
+        <p class="result-decision-reason" id="result-decision-reason">No AP export has been scanned yet.</p>
+      </div>
+
+      <div class="result-controls">
+        <div class="tabs" role="tablist" aria-label="Queue filters">
+          <button class="tab active" type="button" data-queue="ALL">All</button>
+          <button class="tab" type="button" data-queue="HOLD">HOLD</button>
+          <button class="tab" type="button" data-queue="REVIEW">REVIEW</button>
+          <button class="tab" type="button" data-queue="CLEAR">CLEAR</button>
+        </div>
+        <div class="download-row">
+          <button class="button secondary" type="button" id="download-csv" disabled>Download CSV report</button>
+          <button class="button secondary" type="button" id="download-html" disabled>Download HTML report</button>
+        </div>
+      </div>
+      <p class="report-ready" id="report-ready">Run the scanner to enable CSV and HTML reports.</p>
+
+      <div class="mapping-panel">
+        <div>
+          <h2>Detected field mapping</h2>
+          <p id="mapping-copy">No input scanned yet.</p>
+        </div>
+        <div class="mapping-list" id="mapping-list"></div>
+      </div>
+
+      <div class="evidence-passport-panel" id="evidence-passport" hidden>
+        <div class="passport-heading">
+          <div>
+            <span class="section-kicker">Export Evidence Passport</span>
+            <h2>Field fit, rule readiness, and local signals before any setup call.</h2>
+            <p>Use this section to decide whether your AP export is ready for a first-run review. It stays local and does not change the HOLD / REVIEW / CLEAR queue.</p>
+          </div>
+        <a class="button secondary" href="https://tools.simplezion.com/setup-service/">Need mapping help?</a>
+        </div>
+        <div class="passport-grid">
+          <article class="passport-card">
+            <span>Source profile</span>
+            <strong id="passport-source">Run scanner</strong>
+            <p id="passport-source-detail">Load fake samples or a local CSV to see source confidence.</p>
+          </article>
+          <article class="passport-card">
+            <span>Field confidence</span>
+            <strong id="passport-fields">0 ready</strong>
+            <p id="passport-fields-detail">Mapped fields and weak headers will appear here.</p>
+          </article>
+          <article class="passport-card">
+            <span>Rule readiness</span>
+            <strong id="passport-rules">0 ready</strong>
+            <p id="passport-rules-detail">Ready and blocked checks are summarized here.</p>
+          </article>
+          <article class="passport-card">
+            <span>Local review signals</span>
+            <strong id="passport-signals">0 signals</strong>
+            <p id="passport-signals-detail">Local signals are review aids only; they do not change queue decisions.</p>
+          </article>
+        </div>
+        <div class="passport-decision-card" id="passport-decision-card" data-status="not_ready">
+          <div class="passport-decision-copy">
+            <span id="passport-decision-label">Buyer decision</span>
+            <h3 id="passport-decision-title">Run scanner first.</h3>
+            <p id="passport-decision-summary">The scanner will recommend whether to use the free proof path, the self-serve bundle, or the first-run setup service.</p>
+          </div>
+          <div class="passport-decision-actions">
+            <a class="button primary" id="passport-decision-primary" href="https://payhip.com/b/6UYfe">Download free proof pack</a>
+            <a class="button secondary" id="passport-decision-secondary" href="https://tools.simplezion.com/sample-report/">View sample report</a>
+          </div>
+          <div class="passport-decision-evidence">
+            <div>
+              <strong>Why this recommendation</strong>
+              <ul id="passport-decision-reasons"></ul>
+            </div>
+            <div>
+              <strong>Next steps</strong>
+              <ul id="passport-decision-next-steps"></ul>
+            </div>
+          </div>
+        </div>
+        <div class="passport-detail-grid">
+          <div>
+            <h3>Profile evidence</h3>
+            <ul id="passport-profile-list"></ul>
+          </div>
+          <div>
+            <h3>Top local signals</h3>
+            <ul id="passport-signal-list"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="setup-example-panel" aria-label="Example for mapping unclear setup path">
+        <div>
+          <span class="section-kicker">When setup is the better path</span>
+          <h2>Example: mapping unclear -> use USD149 setup before self-service.</h2>
+          <p>If your export only has weak labels like `Name`, `Ref`, `Total`, or is missing invoice/date/payment references, the Passport should not push you straight to the bundle.</p>
+        </div>
+        <div class="setup-example-grid">
+          <div><strong>2/6 checks ready</strong><span>vendor + amount detected, invoice/date/payment id unclear</span></div>
+          <div><strong>3 fields need review</strong><span>header meaning should be confirmed before relying on the queue</span></div>
+          <div><strong>Recommended action</strong><span>send headers, fake rows, or redacted rows for first-run setup</span></div>
+        </div>
+        <a class="button secondary" href="https://tools.simplezion.com/setup-service/">Open USD149 setup example path</a>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Queue</th>
+              <th>Score</th>
+              <th>Vendor / Payee</th>
+              <th>Invoice</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody id="result-body">
+            <tr class="empty-row"><td colspan="8" class="empty">Run the scanner to build a review queue.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mobile-result-list" id="mobile-result-list">
+        <p class="empty">Run the scanner to build a review queue.</p>
+      </div>
+    </section>
+
+    <section id="next-step" class="next-step-section">
+      <div>
+        <span class="section-kicker">Buyer path</span>
+        <h2>Turn the sample scan into a repeatable AP review.</h2>
+        <p>Open the public fake-data report first, then use the free ZIP to run this scanner locally and check whether your export headers are ready. Buy only after the queue, evidence fields, and report shape match your workflow.</p>
+      </div>
+      <div class="next-step-actions">
+        <a class="button secondary" href="./sample_output/sample_duplicate_payment_risk_report.html">View public sample report</a>
+        <a class="button primary" href="https://payhip.com/b/6UYfe">Download free proof pack</a>
+        <a class="button secondary" href="https://tools.simplezion.com/setup-service/">Preview USD149 setup</a>
+        <a class="button ghost" href="https://payhip.com/b/n6oUD">See USD49 self-serve bundle</a>
+      </div>
+    </section>
+
+    <section id="rules" class="rules-section">
+      <h2>Rules included in this demo</h2>
+      <div class="rule-grid">
+        <article><strong>Exact duplicate invoice</strong><p>Same normalized vendor, same raw invoice value, and same amount inside the current run.</p></article>
+        <article><strong>Normalized invoice match</strong><p>Same vendor and amount after removing invoice punctuation, spaces, and case differences.</p></article>
+        <article><strong>Same vendor + amount + date window</strong><p>Same vendor and amount within a configurable date window even when invoice numbers differ.</p></article>
+        <article><strong>Current run duplicate rows</strong><p>Identical payment run row signature appears more than once.</p></article>
+        <article><strong>Historical paid comparison</strong><p>Current run item matches optional paid history by invoice or near-date payment evidence.</p></article>
+        <article><strong>Vendor/payee alias review</strong><p>Flags likely aliases and buyer-provided alias mappings that need AP review.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <script src="./src/csv.js?v=202605061930"></script>
+  <script src="./src/fieldMapping.js?v=202605061930"></script>
+  <script src="./src/fieldConfidenceLedger.js?v=202605061930"></script>
+  <script src="./src/vendorNormalization.js?v=202605061930"></script>
+  <script src="./src/scanner.js?v=202605061930"></script>
+  <script src="./src/reports.js?v=202605061930"></script>
+  <script src="./src/samples.js?v=202605061930"></script>
+  <script src="./src/app.js?v=202605061930"></script>
+</body>
+</html>

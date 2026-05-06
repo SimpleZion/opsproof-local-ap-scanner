@@ -1,0 +1,21 @@
+name: Bug report
+description: Report a scanner issue using fake or redacted data only.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not upload private finance, supplier, bank, tax, payroll, customer, or payment-card data. Use fake or redacted rows.
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: fake-data
+    attributes:
+      label: Fake or redacted sample
+    validations:
+      required: false

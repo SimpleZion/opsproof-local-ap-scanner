@@ -1,0 +1,24 @@
+{
+  "name": "opsproof-local-ap-scanner",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Local-first duplicate-payment risk scanner for AP payment-run CSV review.",
+  "scripts": {
+    "test": "npm run test:smoke && npm run test:field-ledger && npm run test:vendor-normalization",
+    "test:smoke": "node scripts/smoke_test.js",
+    "test:field-ledger": "node scripts/field_confidence_ledger_smoke_test.js",
+    "test:vendor-normalization": "node scripts/vendor_normalization_smoke_test.js",
+    "build:sample-report": "node scripts/build_sample_report.js"
+  },
+  "keywords": [
+    "accounts-payable",
+    "duplicate-payment",
+    "csv",
+    "local-first",
+    "finance-ops",
+    "ap-controls",
+    "chinese-fields"
+  ],
+  "author": "OpsProof Tools",
+  "license": "MIT"
+}

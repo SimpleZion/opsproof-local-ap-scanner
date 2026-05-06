@@ -1,0 +1,6 @@
+payment_reference,payee,invoice_no,paid_date,amount,payment_status
+HIST-1001,Acme Office Supplies,INV-8841,2026-04-28,1280.00,paid
+HIST-1002,Old Town Water,OTW-300,2026-04-10,214.50,paid
+HIST-1003,Harbor Telecom,HT-2026-04,2026-04-15,640.00,posted
+HIST-1004,Prime Electrical Services,PE-7700,2026-04-22,5210.00,cleared
+HIST-1005,BluePeak Software,BP-990,2026-03-16,399.00,paid
