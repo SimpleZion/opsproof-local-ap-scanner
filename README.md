@@ -27,11 +27,11 @@ You can also inspect the bundled fake-data report first:
 - [English sample report](sample_output/sample_duplicate_payment_risk_report.html)
 - [Chinese sample report](sample_output/sample_duplicate_payment_risk_report_zh.html)
 
-Live commercial entry points:
+Live entry points:
 
-- Website: [tools.simplezion.com](https://tools.simplezion.com/)
+- Live scanner and website: [tools.simplezion.com](https://tools.simplezion.com/)
 - Free proof pack: [Payhip free pack](https://payhip.com/b/6UYfe)
-- Paid self-serve bundle: [Payhip USD49 bundle](https://payhip.com/b/n6oUD)
+- Paid self-serve bundle: [AP Control Evidence Bundle](https://payhip.com/b/n6oUD)
 - Setup service: [AP CSV mapping and first-run review](https://tools.simplezion.com/setup-service/)
 
 ## Supported Inputs

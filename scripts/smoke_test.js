@@ -1,17 +1,17 @@
 const fs = require("fs");
 const path = require("path");
-const { buildSampleScan, writeSampleReport } = require("./sample_report_builder");
+const { buildSampleScan } = require("./sample_report_builder");
 
 const root_dir = path.resolve(__dirname, "..");
 const sample_scan = buildSampleScan(root_dir);
-const generated_sample = writeSampleReport(root_dir);
+const chinese_sample_scan = buildSampleScan(root_dir, "zh");
 const namespace = sample_scan.namespace;
 const current_parse = sample_scan.current_parse;
 const scan_result = sample_scan.scan_result;
 const csv_report = sample_scan.csv_report;
 const html_report = sample_scan.html_report;
-const sample_proof_report = generated_sample.html_report;
-const chinese_sample_proof_report = generated_sample.chinese_html_report;
+const sample_proof_report = sample_scan.html_report;
+const chinese_sample_proof_report = chinese_sample_scan.html_report;
 const chinese_current_text = fs.readFileSync(path.join(root_dir, "sample_data", "fake_current_payment_run_zh_headers.csv"), "utf8");
 const chinese_history_text = fs.readFileSync(path.join(root_dir, "sample_data", "fake_paid_history_zh_headers.csv"), "utf8");
 const chinese_alias_text = fs.readFileSync(path.join(root_dir, "sample_data", "fake_vendor_aliases_zh_headers.csv"), "utf8");
