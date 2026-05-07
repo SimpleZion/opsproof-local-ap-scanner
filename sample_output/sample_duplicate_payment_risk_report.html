@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>duplicate_payment_risk_report</title>
+  <title>Duplicate Payment Risk Report</title>
   <style>
     *{box-sizing:border-box}
-    body{max-width:1180px;font-family:Arial,Helvetica,sans-serif;margin:24px auto;padding:0 16px;color:#1d2521}
+    body{max-width:1180px;font-family:Arial,"Microsoft YaHei","PingFang SC","Noto Sans SC",Helvetica,sans-serif;margin:24px auto;padding:0 16px;color:#1d2521}
     h1{margin-bottom:6px}
     .summary{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
     .summary div{border:1px solid #d9e0da;border-radius:8px;padding:12px;min-width:130px;background:#fff}
@@ -40,10 +40,10 @@
 </head>
 <body>
   <h1>Duplicate Payment Risk Report</h1>
-  <p>Generated locally in browser at 2026-05-06T11:53:54.879Z. No network upload is required by this report generator.</p>
-  <p><strong>Language note: this report supports English and Chinese. Use the scanner language switch to download the Chinese version, or keep this English version for buyer review. 语言说明：本报告同时支持英文和中文；如需中文版本，请在复核工具中切换语言后重新下载。</strong></p>
+  <p>Generated locally in browser at 2026-05-07T02:51:58.326Z. No network upload is required by this report generator.</p>
+  <p><strong>Language note: this report is in English. Use the scanner language switch to download the Chinese version.</strong></p>
   <p><strong>ML-assisted evidence:</strong> Explainable local unsupervised signals: robust amount baselines, vendor-history presence, and field completeness.</p>
-  <p><strong>ML scorecard:</strong> local_unsupervised_signal_v1. ML-assisted signals do not change HOLD/REVIEW/CLEAR decisions; queues are assigned only from deterministic duplicate-payment rules.</p>
+  <p><strong>ML scorecard:</strong> Local unsupervised signal v1. ML-assisted signals do not change HOLD/REVIEW/CLEAR decisions; queues are assigned only from deterministic duplicate-payment rules.</p>
   <div class="summary">
     <div><strong>Overall risk</strong><br>95</div>
     <div><strong>HOLD</strong><br>5</div>
@@ -58,7 +58,7 @@
     <p>This sample produced 5 HOLD, 3 REVIEW, and 4 CLEAR rows. HOLD means stop before payment release; REVIEW means human follow-up is required; CLEAR means no starter duplicate-payment signal fired from the current export fields.</p>
     <div class="action-summary-grid">
       <div><span>Immediate action</span><strong>This export is a fit for the USD49 self-serve bundle.</strong></div>
-      <div><span>Evidence basis</span><strong>Current export profile: payment_run_export. 6/6 checks are runnable. This report uses simulated rows only; no real supplier, bank, tax, payroll, customer, invoice, or payment data is included.</strong></div>
+      <div><span>Evidence basis</span><strong>Current export profile: Payment run export. 6/6 checks are runnable. This report uses simulated rows only; no real supplier, bank, tax, payroll, customer, invoice, or payment data is included.</strong></div>
       <div><span>Payment-release impact</span><strong>Review HOLD rows first before payment release. Sample HOLD amount: 3998.00.</strong></div>
     </div>
     <table>
@@ -96,7 +96,7 @@
       <a href="https://payhip.com/b/6UYfe">Download free proof pack</a>
     </div>
     <div class="decision-grid">
-      <div><strong>Why this recommendation</strong><ul><li>6/6 bundled checks are ready from this local export.</li><li>6 AP fields mapped confidently; 0 need confirmation; 0 are missing.</li><li>12 current-run rows, 5 paid-history rows, and 4 alias rows were available.</li><li>Source profile: payment_run_export at 92% confidence.</li></ul></div>
+      <div><strong>Why this recommendation</strong><ul><li>6/6 bundled checks are ready from this local export.</li><li>6 AP fields mapped confidently; 0 need confirmation; 0 are missing.</li><li>12 current-run rows, 5 paid-history rows, and 4 alias rows were available.</li><li>Source profile: Payment run export at 92% confidence.</li></ul></div>
       <div><strong>Next steps</strong><ul><li>Review HOLD rows first, then REVIEW rows before any payment release.</li><li>Save the HTML report and CSV queue as controller evidence.</li><li>Use setup only if your live export differs from this sample-ready structure.</li></ul></div>
     </div>
   </section>
@@ -115,7 +115,7 @@
         <td>BP-998</td>
         <td>399.00</td>
         <td>2026-04-16</td>
-        <td>exact_duplicate_invoice: Exact duplicate invoice in current run across rows 5, 6. | normalized_invoice_match: Normalized invoice match after removing punctuation/case across rows 5, 6. | current_run_duplicate_rows: Current run duplicate row signature appears on rows 5, 6.</td>
+        <td>Exact duplicate invoice: Exact duplicate invoice in current run across rows 5, 6. | Normalized invoice match: Normalized invoice match after removing punctuation/case across rows 5, 6. | Current run duplicate rows: Current run duplicate row signature appears on rows 5, 6.</td>
       </tr>
     
       <tr>
@@ -126,7 +126,7 @@
         <td>BP-998</td>
         <td>399.00</td>
         <td>2026-04-16</td>
-        <td>exact_duplicate_invoice: Exact duplicate invoice in current run across rows 5, 6. | normalized_invoice_match: Normalized invoice match after removing punctuation/case across rows 5, 6. | current_run_duplicate_rows: Current run duplicate row signature appears on rows 5, 6.</td>
+        <td>Exact duplicate invoice: Exact duplicate invoice in current run across rows 5, 6. | Normalized invoice match: Normalized invoice match after removing punctuation/case across rows 5, 6. | Current run duplicate rows: Current run duplicate row signature appears on rows 5, 6.</td>
       </tr>
     
       <tr>
@@ -137,7 +137,7 @@
         <td>INV-8841</td>
         <td>1280.00</td>
         <td>2026-04-24</td>
-        <td>normalized_invoice_match: Normalized invoice match after removing punctuation/case across rows 2, 10. | current_run_duplicate_rows: Current run duplicate row signature appears on rows 2, 10. | historical_paid_comparison: Matches paid history row 2 by vendor, normalized invoice, and amount. | vendor_payee_alias_review: Vendor/payee aliases may refer to the same payee: acme office supplies / acme office supply.</td>
+        <td>Normalized invoice match: Normalized invoice match after removing punctuation/case across rows 2, 10. | Current run duplicate rows: Current run duplicate row signature appears on rows 2, 10. | Historical paid comparison: Matches paid history row 2 by vendor, normalized invoice, and amount. | Vendor/payee alias review: Vendor/payee aliases may refer to the same payee: acme office supplies / acme office supply.</td>
       </tr>
     
       <tr>
@@ -148,7 +148,7 @@
         <td>HT-2026-04</td>
         <td>640.00</td>
         <td>2026-04-12</td>
-        <td>historical_paid_comparison: Matches paid history row 4 by vendor, normalized invoice, and amount.</td>
+        <td>Historical paid comparison: Matches paid history row 4 by vendor, normalized invoice, and amount.</td>
       </tr>
     
       <tr>
@@ -159,7 +159,7 @@
         <td>INV8841</td>
         <td>1280.00</td>
         <td>2026-04-24</td>
-        <td>normalized_invoice_match: Normalized invoice match after removing punctuation/case across rows 2, 10. | current_run_duplicate_rows: Current run duplicate row signature appears on rows 2, 10. | historical_paid_comparison: Matches paid history row 2 by vendor, normalized invoice, and amount. | vendor_payee_alias_review: Vendor/payee aliases may refer to the same payee: acme office supplies / acme office supply.</td>
+        <td>Normalized invoice match: Normalized invoice match after removing punctuation/case across rows 2, 10. | Current run duplicate rows: Current run duplicate row signature appears on rows 2, 10. | Historical paid comparison: Matches paid history row 2 by vendor, normalized invoice, and amount. | Vendor/payee alias review: Vendor/payee aliases may refer to the same payee: acme office supplies / acme office supply.</td>
       </tr>
     
       <tr>
@@ -170,7 +170,7 @@
         <td>PE-7730</td>
         <td>5210.00</td>
         <td>2026-04-25</td>
-        <td>historical_paid_comparison: Near paid-history match: same vendor and amount within 3 day(s), history row 5.</td>
+        <td>Historical paid comparison: Near paid-history match: same vendor and amount within 3 day(s), history row 5.</td>
       </tr>
     
       <tr>
@@ -181,7 +181,7 @@
         <td>MC-778</td>
         <td>920.00</td>
         <td>2026-04-19</td>
-        <td>same_vendor_amount_date_window: Same vendor and amount within 0 day(s), but invoice numbers differ.</td>
+        <td>Same vendor + amount + date window: Same vendor and amount within 0 day(s), but invoice numbers differ.</td>
       </tr>
     
       <tr>
@@ -192,7 +192,7 @@
         <td>MC778-R</td>
         <td>920.00</td>
         <td>2026-04-19</td>
-        <td>same_vendor_amount_date_window: Same vendor and amount within 0 day(s), but invoice numbers differ.</td>
+        <td>Same vendor + amount + date window: Same vendor and amount within 0 day(s), but invoice numbers differ.</td>
       </tr>
     
       <tr>
@@ -203,7 +203,7 @@
         <td>NS-2207</td>
         <td>2450.00</td>
         <td>2026-04-18</td>
-        <td>clear: No duplicate payment risk found by this scan.</td>
+        <td>No duplicate-payment rule triggered: No duplicate payment risk found by this scan.</td>
       </tr>
     
       <tr>
@@ -214,7 +214,7 @@
         <td>LC-510</td>
         <td>875.00</td>
         <td>2026-04-20</td>
-        <td>clear: No duplicate payment risk found by this scan.</td>
+        <td>No duplicate-payment rule triggered: No duplicate payment risk found by this scan.</td>
       </tr>
     
       <tr>
@@ -225,7 +225,7 @@
         <td>GF-4210</td>
         <td>1600.00</td>
         <td>2026-04-27</td>
-        <td>clear: No duplicate payment risk found by this scan.</td>
+        <td>No duplicate-payment rule triggered: No duplicate payment risk found by this scan.</td>
       </tr>
     
       <tr>
@@ -236,7 +236,7 @@
         <td>SO-110</td>
         <td>3100.00</td>
         <td>2026-04-28</td>
-        <td>clear: No duplicate payment risk found by this scan.</td>
+        <td>No duplicate-payment rule triggered: No duplicate payment risk found by this scan.</td>
       </tr>
     </tbody>
   </table>
@@ -245,27 +245,27 @@
     <thead><tr><th>Source</th><th>Likely profile</th><th>Headers</th><th>Rows</th><th>Header list</th></tr></thead>
     <tbody>
       <tr>
-        <td>current</td>
-        <td>payment_run_export</td>
+        <td>Current payment run</td>
+        <td>Payment run export</td>
         <td>9</td>
         <td>12</td>
-        <td>payment_batch_id, payment_id, vendor_name, invoice_number, invoice_date, amount, currency, payment_status, memo</td>
+        <td>payment batch id, payment id, vendor name, invoice number, invoice date, amount, currency, payment status, memo</td>
       </tr>
     
       <tr>
-        <td>paid_history</td>
-        <td>payment_run_export</td>
+        <td>Paid history</td>
+        <td>Payment run export</td>
         <td>6</td>
         <td>5</td>
-        <td>payment_reference, payee, invoice_no, paid_date, amount, payment_status</td>
+        <td>payment reference, payee, invoice no, paid date, amount, payment status</td>
       </tr>
     
       <tr>
-        <td>vendor_aliases</td>
-        <td>quickbooks_like_export</td>
+        <td>Vendor aliases</td>
+        <td>QuickBooks-like export</td>
         <td>2</td>
         <td>4</td>
-        <td>alias, canonical_vendor</td>
+        <td>alias, canonical vendor</td>
       </tr>
     </tbody>
   </table>
@@ -277,7 +277,7 @@
       <tr>
         <td>7</td>
         <td>REVIEW</td>
-        <td>local_unsupervised_signal_v1</td>
+        <td>Local unsupervised signal v1</td>
         <td>78</td>
         <td>Prime Electrical Services</td>
         <td>PE-7730</td>
@@ -291,7 +291,7 @@
       <tr>
         <td>9</td>
         <td>HOLD</td>
-        <td>local_unsupervised_signal_v1</td>
+        <td>Local unsupervised signal v1</td>
         <td>30</td>
         <td>Harbor Telecom</td>
         <td>HT-2026-04</td>
@@ -305,7 +305,7 @@
       <tr>
         <td>12</td>
         <td>REVIEW</td>
-        <td>local_unsupervised_signal_v1</td>
+        <td>Local unsupervised signal v1</td>
         <td>30</td>
         <td>Metro Catering</td>
         <td>MC-778</td>
@@ -319,7 +319,7 @@
       <tr>
         <td>13</td>
         <td>REVIEW</td>
-        <td>local_unsupervised_signal_v1</td>
+        <td>Local unsupervised signal v1</td>
         <td>30</td>
         <td>Metro Catering Services</td>
         <td>MC778-R</td>
@@ -333,7 +333,7 @@
       <tr>
         <td>3</td>
         <td>CLEAR</td>
-        <td>local_unsupervised_signal_v1</td>
+        <td>Local unsupervised signal v1</td>
         <td>28</td>
         <td>Northstar Logistics</td>
         <td>NS-2207</td>
@@ -347,7 +347,7 @@
       <tr>
         <td>4</td>
         <td>CLEAR</td>
-        <td>local_unsupervised_signal_v1</td>
+        <td>Local unsupervised signal v1</td>
         <td>28</td>
         <td>Lakeside Cleaning</td>
         <td>LC-510</td>
@@ -361,7 +361,7 @@
       <tr>
         <td>8</td>
         <td>CLEAR</td>
-        <td>local_unsupervised_signal_v1</td>
+        <td>Local unsupervised signal v1</td>
         <td>28</td>
         <td>GreenField Packaging</td>
         <td>GF-4210</td>
@@ -375,7 +375,7 @@
       <tr>
         <td>11</td>
         <td>CLEAR</td>
-        <td>local_unsupervised_signal_v1</td>
+        <td>Local unsupervised signal v1</td>
         <td>28</td>
         <td>Summit Office Chairs</td>
         <td>SO-110</td>
@@ -389,7 +389,7 @@
       <tr>
         <td>2</td>
         <td>HOLD</td>
-        <td>local_unsupervised_signal_v1</td>
+        <td>Local unsupervised signal v1</td>
         <td>0</td>
         <td>Acme Office Supplies</td>
         <td>INV-8841</td>
@@ -403,7 +403,7 @@
       <tr>
         <td>5</td>
         <td>HOLD</td>
-        <td>local_unsupervised_signal_v1</td>
+        <td>Local unsupervised signal v1</td>
         <td>0</td>
         <td>BluePeak Software</td>
         <td>BP-998</td>
@@ -417,7 +417,7 @@
       <tr>
         <td>6</td>
         <td>HOLD</td>
-        <td>local_unsupervised_signal_v1</td>
+        <td>Local unsupervised signal v1</td>
         <td>0</td>
         <td>BluePeak Software LLC</td>
         <td>BP-998</td>
@@ -431,7 +431,7 @@
       <tr>
         <td>10</td>
         <td>HOLD</td>
-        <td>local_unsupervised_signal_v1</td>
+        <td>Local unsupervised signal v1</td>
         <td>0</td>
         <td>ACME Office Supply Co.</td>
         <td>INV8841</td>
@@ -448,111 +448,111 @@
     <thead><tr><th>Source</th><th>Field</th><th>Detected header</th><th>Confidence</th><th>Mapping evidence</th><th>Status</th></tr></thead>
     <tbody>
       <tr>
-        <td>current</td>
-        <td>vendor</td>
-        <td>vendor_name</td>
+        <td>Current payment run</td>
+        <td>Vendor / Payee</td>
+        <td>vendor name</td>
         <td>100</td>
-        <td>known alias 100; shared mapper 100 | candidates: vendor 100</td>
-        <td>ready</td>
+        <td>known alias 100; shared mapper 100 | candidates: Vendor / Payee 100</td>
+        <td>Ready</td>
       </tr>
     
       <tr>
-        <td>current</td>
-        <td>invoice_number</td>
-        <td>invoice_number</td>
+        <td>Current payment run</td>
+        <td>Invoice number</td>
+        <td>invoice number</td>
         <td>100</td>
-        <td>known alias 100; shared mapper 100 | candidates: invoice_number 100</td>
-        <td>ready</td>
+        <td>known alias 100; shared mapper 100 | candidates: Invoice number 100</td>
+        <td>Ready</td>
       </tr>
     
       <tr>
-        <td>current</td>
+        <td>Current payment run</td>
+        <td>Amount</td>
         <td>amount</td>
-        <td>amount</td>
         <td>100</td>
-        <td>known alias 100; shared mapper 100; sample values look numeric 24 | candidates: amount 100</td>
-        <td>ready</td>
+        <td>known alias 100; shared mapper 100; sample values look numeric 24 | candidates: Amount 100</td>
+        <td>Ready</td>
       </tr>
     
       <tr>
-        <td>current</td>
-        <td>date</td>
-        <td>invoice_date</td>
+        <td>Current payment run</td>
+        <td>Date</td>
+        <td>invoice date</td>
         <td>100</td>
-        <td>known alias 100; shared mapper 100; sample values look like dates 24 | candidates: date 100, invoice_number 65</td>
-        <td>ready</td>
+        <td>known alias 100; shared mapper 100; sample values look like dates 24 | candidates: Date 100, Invoice number 65</td>
+        <td>Ready</td>
       </tr>
     
       <tr>
-        <td>current</td>
-        <td>payment_id</td>
-        <td>payment_batch_id</td>
+        <td>Current payment run</td>
+        <td>Payment ID</td>
+        <td>payment batch id</td>
         <td>100</td>
-        <td>known alias 100; shared mapper 100 | candidates: payment_id 100</td>
-        <td>ready</td>
+        <td>known alias 100; shared mapper 100 | candidates: Payment ID 100</td>
+        <td>Ready</td>
       </tr>
     
       <tr>
-        <td>current</td>
-        <td>status</td>
-        <td>payment_status</td>
+        <td>Current payment run</td>
+        <td>Status</td>
+        <td>payment status</td>
         <td>100</td>
-        <td>known alias 100; shared mapper 100 | candidates: status 100</td>
-        <td>ready</td>
+        <td>known alias 100; shared mapper 100 | candidates: Status 100</td>
+        <td>Ready</td>
       </tr>
     
       <tr>
-        <td>paid_history</td>
-        <td>vendor</td>
+        <td>Paid history</td>
+        <td>Vendor / Payee</td>
         <td>payee</td>
         <td>100</td>
-        <td>known alias 100; shared mapper 100 | candidates: vendor 100</td>
-        <td>ready</td>
+        <td>known alias 100; shared mapper 100 | candidates: Vendor / Payee 100</td>
+        <td>Ready</td>
       </tr>
     
       <tr>
-        <td>paid_history</td>
-        <td>invoice_number</td>
-        <td>invoice_no</td>
+        <td>Paid history</td>
+        <td>Invoice number</td>
+        <td>invoice no</td>
         <td>100</td>
-        <td>known alias 100; shared mapper 100 | candidates: invoice_number 100</td>
-        <td>ready</td>
+        <td>known alias 100; shared mapper 100 | candidates: Invoice number 100</td>
+        <td>Ready</td>
       </tr>
     
       <tr>
-        <td>paid_history</td>
+        <td>Paid history</td>
+        <td>Amount</td>
         <td>amount</td>
-        <td>amount</td>
         <td>100</td>
-        <td>known alias 100; shared mapper 100; sample values look numeric 24 | candidates: amount 100</td>
-        <td>ready</td>
+        <td>known alias 100; shared mapper 100; sample values look numeric 24 | candidates: Amount 100</td>
+        <td>Ready</td>
       </tr>
     
       <tr>
-        <td>paid_history</td>
-        <td>date</td>
-        <td>paid_date</td>
+        <td>Paid history</td>
+        <td>Date</td>
+        <td>paid date</td>
         <td>100</td>
-        <td>known alias 100; shared mapper 100; sample values look like dates 24 | candidates: date 100</td>
-        <td>ready</td>
+        <td>known alias 100; shared mapper 100; sample values look like dates 24 | candidates: Date 100</td>
+        <td>Ready</td>
       </tr>
     
       <tr>
-        <td>paid_history</td>
-        <td>payment_id</td>
-        <td>payment_reference</td>
+        <td>Paid history</td>
+        <td>Payment ID</td>
+        <td>payment reference</td>
         <td>100</td>
-        <td>known alias 100; shared mapper 100 | candidates: payment_id 100, invoice_number 67</td>
-        <td>ready</td>
+        <td>known alias 100; shared mapper 100 | candidates: Payment ID 100, Invoice number 67</td>
+        <td>Ready</td>
       </tr>
     
       <tr>
-        <td>paid_history</td>
-        <td>status</td>
-        <td>payment_status</td>
+        <td>Paid history</td>
+        <td>Status</td>
+        <td>payment status</td>
         <td>100</td>
-        <td>known alias 100; shared mapper 100 | candidates: status 100</td>
-        <td>ready</td>
+        <td>known alias 100; shared mapper 100 | candidates: Status 100</td>
+        <td>Ready</td>
       </tr>
     </tbody>
   </table>
@@ -561,44 +561,44 @@
     <thead><tr><th>Rule</th><th>Status</th><th>Required evidence</th><th>Note</th></tr></thead>
     <tbody>
       <tr>
-        <td>exact_duplicate_invoice</td>
-        <td>ready</td>
-        <td>vendor; invoice_number; amount</td>
+        <td>Exact duplicate invoice</td>
+        <td>Ready</td>
+        <td>Vendor / Payee; Invoice number; Amount</td>
         <td>Needs current-run vendor, invoice, and amount fields.</td>
       </tr>
     
       <tr>
-        <td>normalized_invoice_match</td>
-        <td>ready</td>
-        <td>vendor; invoice_number; amount</td>
+        <td>Normalized invoice match</td>
+        <td>Ready</td>
+        <td>Vendor / Payee; Invoice number; Amount</td>
         <td>Needs current-run vendor, invoice, and amount fields; punctuation is normalized locally.</td>
       </tr>
     
       <tr>
-        <td>current_run_duplicate_rows</td>
-        <td>ready</td>
-        <td>vendor; invoice_number; amount; date; payment_id</td>
+        <td>Current run duplicate rows</td>
+        <td>Ready</td>
+        <td>Vendor / Payee; Invoice number; Amount; Date; Payment ID</td>
         <td>Best when the current payment run includes a batch or payment reference.</td>
       </tr>
     
       <tr>
-        <td>same_vendor_amount_date_window</td>
-        <td>ready</td>
-        <td>vendor; amount; date</td>
+        <td>Same vendor + amount + date window</td>
+        <td>Ready</td>
+        <td>Vendor / Payee; Amount; Date</td>
         <td>Needs current-run vendor, amount, and date fields.</td>
       </tr>
     
       <tr>
-        <td>historical_paid_comparison</td>
-        <td>ready</td>
-        <td>current vendor; current invoice; current amount; history vendor; history invoice; history amount</td>
+        <td>Historical paid comparison</td>
+        <td>Ready</td>
+        <td>Current vendor / payee; Current invoice number; Current amount; History vendor / payee; History invoice number; History amount</td>
         <td>Paid-history rows are available for comparison.</td>
       </tr>
     
       <tr>
-        <td>vendor_payee_alias_review</td>
-        <td>ready</td>
-        <td>vendor; amount; date; alias map</td>
+        <td>Vendor/payee alias review</td>
+        <td>Ready</td>
+        <td>Vendor / Payee; Amount; Date; Alias map</td>
         <td>Vendor alias rows are available.</td>
       </tr>
     </tbody>

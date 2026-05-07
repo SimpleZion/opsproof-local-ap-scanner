@@ -88,76 +88,129 @@
   }
 
   function ruleLabel(rule, language) {
-    if (language !== "zh") {
-      return rule;
-    }
-    return ({
-      exact_duplicate_invoice: "完全重复发票",
-      normalized_invoice_match: "规范化发票号匹配",
-      same_vendor_amount_date_window: "同供应商同金额短期重复",
-      current_run_duplicate_rows: "当前付款批次重复行",
-      historical_paid_comparison: "历史已付款比对",
-      vendor_payee_alias_review: "供应商/收款方别名复核",
-      vendor_alias_review: "供应商/收款方别名复核",
-      global_amount_anomaly: "全局金额异常",
-      vendor_amount_anomaly: "供应商金额异常",
-      limited_vendor_baseline: "供应商基线有限",
-      missing_vendor_history: "供应商历史缺失",
-      record_completeness_gap: "记录完整度缺口",
-      clear: "未触发重复付款规则",
-    })[rule] || rule;
+    const labels = {
+      exact_duplicate_invoice: { en: "Exact duplicate invoice", zh: "完全重复发票" },
+      normalized_invoice_match: { en: "Normalized invoice match", zh: "规范化发票号匹配" },
+      same_vendor_amount_date_window: { en: "Same vendor + amount + date window", zh: "同供应商同金额短期重复" },
+      current_run_duplicate_rows: { en: "Current run duplicate rows", zh: "当前付款批次重复行" },
+      historical_paid_comparison: { en: "Historical paid comparison", zh: "历史已付款比对" },
+      vendor_payee_alias_review: { en: "Vendor/payee alias review", zh: "供应商/收款方别名复核" },
+      vendor_alias_review: { en: "Vendor/payee alias review", zh: "供应商/收款方别名复核" },
+      global_amount_anomaly: { en: "Global amount anomaly", zh: "全局金额异常" },
+      vendor_amount_anomaly: { en: "Vendor amount anomaly", zh: "供应商金额异常" },
+      limited_vendor_baseline: { en: "Limited vendor baseline", zh: "供应商基线有限" },
+      missing_vendor_history: { en: "Missing vendor history", zh: "供应商历史缺失" },
+      record_completeness_gap: { en: "Record completeness gap", zh: "记录完整度缺口" },
+      clear: { en: "No duplicate-payment rule triggered", zh: "未触发重复付款规则" },
+    };
+    return (labels[rule] || {})[language] || (labels[rule] || {}).en || rule;
+  }
+
+  function sourceProfileLabel(value, language) {
+    const labels = {
+      payment_run_export: { en: "Payment run export", zh: "付款批次导出" },
+      paid_history_export: { en: "Paid history export", zh: "已付款历史导出" },
+      quickbooks_like_export: { en: "QuickBooks-like export", zh: "QuickBooks 类导出" },
+      xero_like_export: { en: "Xero-like export", zh: "Xero 类导出" },
+      bank_statement_like_export: { en: "Bank statement-like export", zh: "银行流水类导出" },
+      shopify_or_payout_like_export: { en: "Shopify / payout-like export", zh: "Shopify / 回款类导出" },
+      odoo_like_export: { en: "Odoo-like export", zh: "Odoo 类导出" },
+      generic_ap_export: { en: "Generic AP export", zh: "通用 AP 导出" },
+    };
+    return (labels[value] || {})[language] || (labels[value] || {}).en || value;
+  }
+
+  function sourceNameLabel(value, language) {
+    const labels = {
+      current: { en: "Current payment run", zh: "当前付款批次" },
+      history: { en: "Paid history", zh: "已付款历史" },
+      paid_history: { en: "Paid history", zh: "已付款历史" },
+      aliases: { en: "Vendor aliases", zh: "供应商别名" },
+      alias: { en: "Vendor aliases", zh: "供应商别名" },
+      vendor_aliases: { en: "Vendor aliases", zh: "供应商别名" },
+    };
+    return (labels[value] || {})[language] || (labels[value] || {}).en || value;
   }
 
   function fieldLabel(field, language) {
+    const labels = {
+      vendor: { en: "Vendor / Payee", zh: "供应商/收款方" },
+      "vendor payee": { en: "Vendor / Payee", zh: "供应商/收款方" },
+      invoice_number: { en: "Invoice number", zh: "发票号" },
+      "invoice number": { en: "Invoice number", zh: "发票号" },
+      amount: { en: "Amount", zh: "金额" },
+      date: { en: "Date", zh: "日期" },
+      payment_id: { en: "Payment ID", zh: "付款编号" },
+      "payment id": { en: "Payment ID", zh: "付款编号" },
+      status: { en: "Status", zh: "状态" },
+    };
+    return (labels[field] || {})[language] || (labels[field] || {}).en || field;
+  }
+
+  function scorecardVersionLabel(value, language) {
+    return ({
+      local_unsupervised_signal_v1: "本地无监督信号 v1",
+    })[value] && language === "zh"
+      ? "本地无监督信号 v1"
+      : ({ local_unsupervised_signal_v1: "Local unsupervised signal v1" })[value] || value;
+  }
+
+  function queueDisplayLabel(value, language) {
+    const queue = value === "PASS" ? "CLEAR" : value;
     if (language !== "zh") {
-      return field;
+      return queue;
     }
     return ({
-      vendor: "供应商/收款方",
-      invoice_number: "发票号",
-      amount: "金额",
-      date: "日期",
-      payment_id: "付款编号",
-      status: "状态",
-    })[field] || field;
+      HOLD: "HOLD（暂停复核）",
+      REVIEW: "REVIEW（人工复核）",
+      CLEAR: "CLEAR（可继续）",
+    })[queue] || queue;
+  }
+
+  function localizedCommaList(value, language, itemTranslator) {
+    if (language !== "zh") {
+      return value;
+    }
+    return String(value || "")
+      .split(/,\s*/)
+      .map((item) => item.trim())
+      .filter(Boolean)
+      .map((item) => itemTranslator(item, language))
+      .join("、");
   }
 
   function statusText(status, language) {
-    if (language !== "zh") {
-      return status;
-    }
-    return ({
-      ready: "就绪",
-      review: "需确认",
-      missing: "缺失",
-      blocked: "阻塞",
-      partial: "部分就绪",
-      blocked_or_partial: "阻塞或部分就绪",
-    })[status] || status;
+    const labels = {
+      ready: { en: "Ready", zh: "就绪" },
+      review: { en: "Needs confirmation", zh: "需确认" },
+      missing: { en: "Missing", zh: "缺失" },
+      blocked: { en: "Blocked", zh: "阻塞" },
+      partial: { en: "Partially ready", zh: "部分就绪" },
+      blocked_or_partial: { en: "Blocked or partially ready", zh: "阻塞或部分就绪" },
+    };
+    return (labels[status] || {})[language] || (labels[status] || {}).en || status;
   }
 
   function requiredText(required, language) {
-    if (language !== "zh") {
-      return required;
-    }
+    const labels = {
+      vendor: { en: "Vendor / Payee", zh: "供应商/收款方" },
+      invoice_number: { en: "Invoice number", zh: "发票号" },
+      amount: { en: "Amount", zh: "金额" },
+      date: { en: "Date", zh: "日期" },
+      payment_id: { en: "Payment ID", zh: "付款编号" },
+      status: { en: "Status", zh: "状态" },
+      "current vendor": { en: "Current vendor / payee", zh: "当前供应商/收款方" },
+      "current invoice": { en: "Current invoice number", zh: "当前发票号" },
+      "current amount": { en: "Current amount", zh: "当前金额" },
+      "history vendor": { en: "History vendor / payee", zh: "历史供应商/收款方" },
+      "history invoice": { en: "History invoice number", zh: "历史发票号" },
+      "history amount": { en: "History amount", zh: "历史金额" },
+      "alias map": { en: "Alias map", zh: "别名映射" },
+    };
     return String(required || "")
       .split("; ")
-      .map((value) => ({
-        vendor: "供应商/收款方",
-        invoice_number: "发票号",
-        amount: "金额",
-        date: "日期",
-        payment_id: "付款编号",
-        status: "状态",
-        "current vendor": "当前供应商/收款方",
-        "current invoice": "当前发票号",
-        "current amount": "当前金额",
-        "history vendor": "历史供应商/收款方",
-        "history invoice": "历史发票号",
-        "history amount": "历史金额",
-        "alias map": "别名映射",
-      })[value] || value)
-      .join("；");
+      .map((value) => (labels[value] || {})[language] || (labels[value] || {}).en || value)
+      .join(language === "zh" ? "；" : "; ");
   }
 
   function noteText(note, language) {
@@ -199,6 +252,22 @@
     return `${prefix} | ${language === "zh" ? "候选" : "candidates"}: ${candidateText.join(", ")}`;
   }
 
+  function displayHeaderList(headers, language) {
+    return (headers || [])
+      .map((header) => {
+        return displayHeaderName(header, language);
+      })
+      .join(", ");
+  }
+
+  function displayHeaderName(header, language) {
+    const text = String(header || "");
+    if (language === "zh") {
+      return text;
+    }
+    return text.replace(/_/g, " ");
+  }
+
   function reportRows(items, language) {
     return items.map((item) => ({
       queue: item.queue === "PASS" ? "CLEAR" : item.queue,
@@ -213,7 +282,7 @@
       payment_id: item.paymentId,
       status: item.status,
       matched_rows: item.matchedRows.join("; "),
-      ml_scorecard_version: item.mlSignal ? item.mlSignal.scorecardVersion : "",
+      ml_scorecard_version: item.mlSignal ? scorecardVersionLabel(item.mlSignal.scorecardVersion, language) : "",
       ml_signal_score: item.mlSignal ? item.mlSignal.signalScore : "",
       ml_signal_evidence: item.mlSignal ? mlEvidenceText(item.mlSignal.evidence, language) : "",
       reason: item.reasons.map((reason) => `${ruleLabel(reason.rule, language)}: ${reasonText(reason, language)}`).join(" | "),
@@ -231,14 +300,14 @@
   const reportText = {
     title: { en: "Duplicate Payment Risk Report", zh: "付款前重复付款风险复核报告" },
     generated: { en: "Generated locally in browser at {time}. No network upload is required by this report generator.", zh: "报告于 {time} 在浏览器本地生成。此报告生成器不需要网络上传，也不会上传敏感财务数据。" },
-    bilingualNote: { en: "Language note: this report supports English and Chinese. Use the scanner language switch to download the Chinese version, or keep this English version for buyer review. 语言说明：本报告同时支持英文和中文；如需中文版本，请在复核工具中切换语言后重新下载。", zh: "语言说明：本报告同时支持英文和中文。当前为中文版本；如需英文版本，请在复核工具中切换语言后重新下载。 Language note: this report supports English and Chinese; switch the scanner language to download the English version." },
-    mlEvidence: { en: "ML-assisted evidence:", zh: "本地 ML 辅助证据：" },
-    mlScorecard: { en: "ML scorecard:", zh: "ML 评分卡：" },
+    bilingualNote: { en: "Language note: this report is in English. Use the scanner language switch to download the Chinese version.", zh: "语言说明：当前报告为中文版本。如需英文版本，请在复核工具中切换到 EN 后重新下载。" },
+    mlEvidence: { en: "ML-assisted evidence:", zh: "本地机器辅助证据：" },
+    mlScorecard: { en: "ML scorecard:", zh: "机器辅助评分卡：" },
     defaultMl: { en: "Local unsupervised signals are included when available.", zh: "如可用，将包含本地无监督信号。" },
     overallRisk: { en: "Overall risk", zh: "本批次总体风险" },
     currentRows: { en: "Current rows", zh: "当前付款明细" },
     historyRows: { en: "Paid history rows", zh: "已付款历史行数" },
-    mlSignals: { en: "ML review signals", zh: "本地 ML 复核信号" },
+    mlSignals: { en: "ML review signals", zh: "本地机器复核信号" },
     controllerSummary: { en: "Controller action summary", zh: "财务复核摘要" },
     immediateAction: { en: "Immediate action", zh: "建议动作" },
     evidenceBasis: { en: "Evidence basis", zh: "证据依据" },
@@ -268,7 +337,7 @@
     headers: { en: "Headers", zh: "表头数" },
     rows: { en: "Rows", zh: "行数" },
     headerList: { en: "Header list", zh: "表头列表" },
-    anomalySignals: { en: "ML-Assisted Anomaly Signals", zh: "本地 ML 辅助异常信号" },
+    anomalySignals: { en: "ML-Assisted Anomaly Signals", zh: "本地机器辅助异常信号" },
     anomalyNote: { en: "These are explainable local unsupervised signals, not a fraud guarantee or audit opinion. They help prioritize review when the same CSV export has amount outliers, limited vendor history, or incomplete evidence fields.", zh: "这些是可解释的本地无监督信号，并非反舞弊保证或审计意见。当同一 CSV 导出存在金额离群、供应商历史有限或证据字段不完整时，它们用于辅助排序复核优先级。" },
     scorecard: { en: "Scorecard", zh: "评分卡" },
     signalScore: { en: "Signal score", zh: "信号分" },
@@ -294,16 +363,89 @@
     "Self-serve ready": "适合自助复核",
     "Setup recommended": "建议先做字段映射与首次运行配置服务",
     "Export is not ready for a paid AP review.": "当前导出尚不适合进入付费 AP 复核。",
-    "This export is a fit for the USD49 self-serve bundle.": "当前导出适合使用 USD49 自助复核套件。",
-    "This export likely needs the USD149 first-run setup before self-service.": "当前导出在自助使用前，建议先做 USD149 首次运行字段映射与首次运行配置服务。",
+    "This export is a fit for the USD49 self-serve bundle.": "当前导出适合使用 49 美元自助复核套件。",
+    "This export likely needs the USD149 first-run setup before self-service.": "当前导出在自助使用前，建议先做 149 美元字段映射与首次运行配置服务。",
     "Core evidence is missing. Use the free proof path first and export stronger AP columns before buying the bundle or setup.": "核心证据字段缺失。购买自助包或字段映射与首次运行配置服务前，先使用免费验证包，并导出更完整的 AP 字段。",
     "The current export has enough field confidence and rule readiness to use the local AP control workflow without a mapping call.": "当前导出已具备足够的字段适配可信度和规则可运行性，可直接使用本地 AP 内控复核流程，无需额外字段适配沟通。",
     "Some checks are ready, but blocked rules or uncertain fields mean a short mapping review would reduce false confidence.": "部分检查已可运行，但被阻塞规则或不确定字段仍可能造成误判；短字段适配复核可以降低错误信心。",
-    "Open USD49 bundle": "打开 USD49 包",
-    "Open USD149 setup": "打开 USD149 字段映射与首次运行配置服务",
+    "Open USD49 bundle": "查看 49 美元自助包",
+    "Open USD149 setup": "查看 149 美元配置服务",
     "View sample report": "查看样本报告",
     "Download free proof pack": "下载免费验证包",
   };
+
+  const reportColumnKeys = [
+    "queue",
+    "risk_score",
+    "row_number",
+    "vendor_payee",
+    "canonical_vendor",
+    "invoice_number",
+    "normalized_invoice",
+    "amount",
+    "date",
+    "payment_id",
+    "status",
+    "matched_rows",
+    "ml_scorecard_version",
+    "ml_signal_score",
+    "ml_signal_evidence",
+    "reason",
+  ];
+
+  const csvHeaderLabels = {
+    en: {
+      queue: "Queue",
+      risk_score: "Risk score",
+      row_number: "Row number",
+      vendor_payee: "Vendor / Payee",
+      canonical_vendor: "Normalized vendor",
+      invoice_number: "Invoice number",
+      normalized_invoice: "Normalized invoice",
+      amount: "Amount",
+      date: "Date",
+      payment_id: "Payment ID",
+      status: "Status",
+      matched_rows: "Matched rows",
+      ml_scorecard_version: "ML scorecard version",
+      ml_signal_score: "ML signal score",
+      ml_signal_evidence: "ML signal evidence",
+      reason: "Reason",
+    },
+    zh: {
+      queue: "队列",
+      risk_score: "风险分数",
+      row_number: "行号",
+      vendor_payee: "供应商/收款方",
+      canonical_vendor: "规范化供应商",
+      invoice_number: "发票号",
+      normalized_invoice: "规范化发票号",
+      amount: "金额",
+      date: "日期",
+      payment_id: "付款编号",
+      status: "状态",
+      matched_rows: "匹配行",
+      ml_scorecard_version: "机器辅助评分卡版本",
+      ml_signal_score: "机器辅助信号分",
+      ml_signal_evidence: "机器辅助信号证据",
+      reason: "原因",
+    },
+  };
+
+  function csvReportHeaders(language) {
+    const labels = csvHeaderLabels[language] || {};
+    return reportColumnKeys.map((header) => labels[header] || header);
+  }
+
+  function localizeCsvReportRows(rows, language) {
+    const labels = csvHeaderLabels[language] || {};
+    if (!Object.keys(labels).length) {
+      return rows;
+    }
+    return rows.map((row) => Object.fromEntries(
+      reportColumnKeys.map((header) => [labels[header] || header, row[header]])
+    ));
+  }
 
   function reportLabel(language, key, values) {
     const entry = reportText[key] || {};
@@ -316,7 +458,10 @@
 
   function translateBuyerText(value, language) {
     if (language !== "zh") {
-      return value;
+      return String(value || "")
+        .replace(/^Source profile: (.+) at (\d+)% confidence\.$/, (_all, profile, confidence) => `Source profile: ${sourceProfileLabel(profile, language)} at ${confidence}% confidence.`)
+        .replace(/^Missing core fields: (.+)\.$/, (_all, fields) => `Missing core fields: ${localizedCommaList(fields, language, fieldLabel)}.`)
+        .replace(/^Blocked or partial checks: (.+)\.$/, (_all, rules) => `Blocked or partially ready checks: ${localizedCommaList(rules, language, ruleLabel)}.`);
     }
     return (buyerText[value] || value)
       .replace(/^Current export rows: (\d+)\./, "当前导出行数：$1。")
@@ -325,27 +470,36 @@
       .replace(/^(\d+)\/(\d+) bundled checks are ready from this local export\.$/, "本地导出中已有 $1/$2 项内置检查具备运行条件。")
       .replace(/^(\d+) AP fields mapped confidently; (\d+) need confirmation; (\d+) are missing\.$/, "$1 个 AP 字段已高置信度适配；$2 个需要确认；$3 个缺失。")
       .replace(/^(\d+) current-run rows, (\d+) paid-history rows, and (\d+) alias rows were available\.$/, "本次可用数据包括 $1 条当前付款行、$2 条已付款历史行和 $3 条别名映射行。")
-      .replace(/^Source profile: (.+) at (\d+)% confidence\.$/, "数据来源画像：$1，置信度 $2%。")
-      .replace(/^Missing core fields: (.+)\.$/, "缺少核心字段：$1。")
-      .replace(/^Blocked or partial checks: (.+)\.$/, "阻塞或部分就绪检查：$1。")
+      .replace(/^Source profile: (.+) at (\d+)% confidence\.$/, (_all, profile, confidence) => `数据来源画像：${sourceProfileLabel(profile, language)}，置信度 ${confidence}%。`)
+      .replace(/^Missing core fields: (.+)\.$/, (_all, fields) => `缺少核心字段：${localizedCommaList(fields, language, fieldLabel)}。`)
+      .replace(/^Blocked or partial checks: (.+)\.$/, (_all, rules) => `阻塞或部分就绪检查：${localizedCommaList(rules, language, ruleLabel)}。`)
       .replace("Too few checks are ready to make a paid review useful.", "可运行检查太少，付费复核暂时价值有限。")
       .replace("Field confidence should be confirmed before relying on the queue.", "依赖异常队列前，应先确认字段适配可信度。")
       .replace("Run the free proof pack with fake or redacted rows.", "先用模拟数据行或脱敏行运行免费验证包。")
+      .replace("Export vendor/payee, invoice number, amount, and payment or bill date columns.", "导出供应商/收款方、发票号、金额，以及付款日期或账单日期字段。")
+      .replace("Run the header checker again before sending any private AP rows.", "发送任何私密 AP 明细前，先重新运行表头检查。")
+      .replace("Buy setup only after the passport shows enough fields to review.", "只有在导出适配报告显示字段足够复核后，再考虑配置服务。")
       .replace("Export vendor/payee, invoice, amount, date, payment id, and status if available.", "尽量导出供应商/收款方、发票、金额、日期、付款 ID 和状态。")
       .replace("Use setup only after headers or sample rows show enough AP context.", "只有在表头或样本行呈现足够 AP 上下文后，再使用字段映射与首次运行配置服务。")
       .replace("Download the bundle and run it against a redacted first export.", "下载自助包，并用第一份脱敏导出文件运行。")
       .replace("Use HOLD rows as the payment stop list and REVIEW rows as the AP follow-up list.", "将 HOLD 行作为付款暂停清单，将 REVIEW 行作为 AP 跟进复核清单。")
       .replace("Keep the CSV/HTML report as local evidence for the run.", "将 CSV/HTML 报告作为本次付款前复核的本地证据留存。")
+      .replace("Review HOLD rows first, then REVIEW rows before any payment release.", "付款放行前，先复核 HOLD 行，再复核 REVIEW 行。")
+      .replace("Save the HTML report and CSV queue as controller evidence.", "保存 HTML 报告和 CSV 队列，作为财务负责人复核证据。")
+      .replace("Use setup only if your live export differs from this sample-ready structure.", "只有当你的真实导出与这个样本结构不同，再考虑配置服务。")
       .replace("Send headers or redacted rows for first-run setup.", "发送表头或脱敏行用于首次运行字段映射与首次运行配置服务。")
+      .replace("Send only headers, fake rows, or redacted rows for mapping review.", "只发送表头、模拟行或脱敏行用于字段映射复核。")
+      .replace("Ask for a first-run readiness note before using the queue in a payment process.", "在把异常队列用于付款流程前，先获取首轮就绪说明。")
+      .replace("Move to self-serve only after core checks and history comparison are ready.", "只有在核心检查和历史已付款比对都就绪后，再转为自助使用。")
       .replace("Confirm ambiguous fields before relying on self-service queue output.", "依赖自助异常队列输出前，先确认模糊字段。")
       .replace("After setup, use the self-serve bundle for repeat runs.", "设置完成后，用自助包进行后续重复复核。");
   }
 
   function localizeBuyerGuidance(guidance, language) {
-    if (!guidance || language !== "zh") {
+    if (!guidance) {
       return guidance || {};
     }
-    const secondaryHref = guidance.secondaryHref === "https://tools.simplezion.com/sample-report/"
+    const secondaryHref = language === "zh" && guidance.secondaryHref === "https://tools.simplezion.com/sample-report/"
       ? "https://tools.simplezion.com/sample-report/zh.html"
       : guidance.secondaryHref;
     return {
@@ -378,9 +532,9 @@
 
     if (language === "zh") {
       return {
-        lead: `本次样例生成 ${holdCount} 条 HOLD、${reviewCount} 条 REVIEW、${clearCount} 条 CLEAR。HOLD 表示付款前应暂停核对，REVIEW 表示需要人工补充判断，CLEAR 表示在当前导出字段下未触发入门级重复付款信号。`,
+        lead: `本次样例生成 ${holdCount} 条 HOLD（暂停复核）、${reviewCount} 条 REVIEW（人工复核）、${clearCount} 条 CLEAR（可继续）。HOLD 表示付款前应暂停核对，REVIEW 表示需要人工补充判断，CLEAR 表示在当前导出字段下未触发入门级重复付款信号。`,
         immediate: buyerGuidance.title || "先运行本地复核，再决定是否购买。",
-        evidence: `当前付款批次识别为 ${sourceProfile}，${readyRules}/${totalRules} 项检查具备运行条件；本报告使用模拟数据，不包含真实供应商、银行、税务、工资、客户、发票或付款数据。`,
+        evidence: `当前付款批次识别为${sourceProfileLabel(sourceProfile, language)}，${readyRules}/${totalRules} 项检查具备运行条件；本报告使用模拟数据，不包含真实供应商、银行、税务、工资、客户、发票或付款数据。`,
         impact: holdCount > 0
           ? `付款放行前应优先复核 HOLD 行，涉及样例金额 ${amountForQueue(scanResult, "HOLD")}。`
           : "本次样例未生成 HOLD 行，但仍应复核 REVIEW 行后再放行。",
@@ -410,7 +564,7 @@
     return {
       lead: `This sample produced ${holdCount} HOLD, ${reviewCount} REVIEW, and ${clearCount} CLEAR rows. HOLD means stop before payment release; REVIEW means human follow-up is required; CLEAR means no starter duplicate-payment signal fired from the current export fields.`,
       immediate: buyerGuidance.title || "Run the local review before deciding what to buy.",
-      evidence: `Current export profile: ${sourceProfile}. ${readyRules}/${totalRules} checks are runnable. This report uses simulated rows only; no real supplier, bank, tax, payroll, customer, invoice, or payment data is included.`,
+      evidence: `Current export profile: ${sourceProfileLabel(sourceProfile, language)}. ${readyRules}/${totalRules} checks are runnable. This report uses simulated rows only; no real supplier, bank, tax, payroll, customer, invoice, or payment data is included.`,
       impact: holdCount > 0
         ? `Review HOLD rows first before payment release. Sample HOLD amount: ${amountForQueue(scanResult, "HOLD")}.`
         : "No HOLD rows were generated in this sample; REVIEW rows still need follow-up before release.",
@@ -440,48 +594,7 @@
   function buildCsvReport(scanResult, language) {
     const reportLanguage = language === "zh" ? "zh" : "en";
     const rows = reportRows(scanResult.items, reportLanguage);
-    const headers = [
-      "queue",
-      "risk_score",
-      "row_number",
-      "vendor_payee",
-      "canonical_vendor",
-      "invoice_number",
-      "normalized_invoice",
-      "amount",
-      "date",
-      "payment_id",
-      "status",
-      "matched_rows",
-      "ml_scorecard_version",
-      "ml_signal_score",
-      "ml_signal_evidence",
-      "reason",
-    ];
-    if (reportLanguage !== "zh") {
-      return namespace.csv.rowsToCsv(rows, headers);
-    }
-
-    const chineseHeaders = {
-      queue: "队列",
-      risk_score: "风险分数",
-      row_number: "行号",
-      vendor_payee: "供应商/收款方",
-      canonical_vendor: "规范化供应商",
-      invoice_number: "发票号",
-      normalized_invoice: "规范化发票号",
-      amount: "金额",
-      date: "日期",
-      payment_id: "付款编号",
-      status: "状态",
-      matched_rows: "匹配行",
-      ml_scorecard_version: "ML评分卡版本",
-      ml_signal_score: "ML信号分",
-      ml_signal_evidence: "ML信号证据",
-      reason: "原因",
-    };
-    const localizedRows = rows.map((row) => Object.fromEntries(headers.map((header) => [chineseHeaders[header], row[header]])));
-    return namespace.csv.rowsToCsv(localizedRows, headers.map((header) => chineseHeaders[header]));
+    return namespace.csv.rowsToCsv(localizeCsvReportRows(rows, reportLanguage), csvReportHeaders(reportLanguage));
   }
 
   function buildHtmlReport(scanResult, language) {
@@ -494,13 +607,14 @@
       ? "可解释的本地无监督信号：稳健金额基线、供应商历史存在性和字段完整度。"
       : ((scanResult.mlSummary || {}).method || reportLabel(reportLanguage, "defaultMl"));
     const mlQueuePolicy = reportLanguage === "zh"
-      ? "本地 ML 辅助信号不会改变 HOLD / REVIEW / CLEAR 结论；队列只由确定性重复付款规则分配。"
+      ? "本地机器辅助信号不会改变 HOLD（暂停复核）/ REVIEW（人工复核）/ CLEAR（可继续）结论；队列只由确定性重复付款规则分配。"
       : ((scanResult.mlSummary || {}).queuePolicy || "");
+    const scorecardVersionText = scorecardVersionLabel((scanResult.mlSummary || {}).scorecardVersion || "", reportLanguage);
     const guidanceReasons = (buyerGuidance.reasons || []).map((reason) => `<li>${escapeHtml(reason)}</li>`).join("");
     const guidanceNextSteps = (buyerGuidance.nextSteps || []).map((step) => `<li>${escapeHtml(step)}</li>`).join("");
     const actionRows = actionSummary.rows.map((row) => `
       <tr>
-        <td>${escapeHtml(row.area)}</td>
+        <td>${escapeHtml(queueDisplayLabel(row.area, reportLanguage))}</td>
         <td>${escapeHtml(row.count)}</td>
         <td>${escapeHtml(row.action)}</td>
         <td>${escapeHtml(row.evidence)}</td>
@@ -508,18 +622,18 @@
     `).join("");
     const sourceRows = (scanResult.sourceProfiles || []).map((profile) => `
       <tr>
-        <td>${escapeHtml(profile.sourceName)}</td>
-        <td>${escapeHtml(profile.likelySource)}</td>
+        <td>${escapeHtml(sourceNameLabel(profile.sourceName, reportLanguage))}</td>
+        <td>${escapeHtml(sourceProfileLabel(profile.likelySource, reportLanguage))}</td>
         <td>${escapeHtml(profile.headerCount)}</td>
         <td>${escapeHtml(profile.rowCount)}</td>
-        <td>${escapeHtml((profile.headers || []).join(", "))}</td>
+        <td>${escapeHtml(displayHeaderList(profile.headers, reportLanguage))}</td>
       </tr>
     `).join("");
     const fieldRows = (scanResult.fieldLedger || []).map((row) => `
       <tr>
-        <td>${escapeHtml(row.source)}</td>
+        <td>${escapeHtml(sourceNameLabel(row.source, reportLanguage))}</td>
         <td>${escapeHtml(fieldLabel(row.field, reportLanguage))}</td>
-        <td>${escapeHtml(row.detectedHeader || reportLabel(reportLanguage, "notDetected"))}</td>
+        <td>${escapeHtml(row.detectedHeader ? displayHeaderName(row.detectedHeader, reportLanguage) : reportLabel(reportLanguage, "notDetected"))}</td>
         <td>${escapeHtml(row.confidence)}</td>
         <td>${escapeHtml(fieldEvidenceText(row, reportLanguage))}</td>
         <td>${escapeHtml(statusText(row.status, reportLanguage))}</td>
@@ -536,8 +650,8 @@
     const mlRows = (scanResult.mlSignals || []).map((row) => `
       <tr>
         <td>${escapeHtml(row.rowNumber)}</td>
-        <td>${escapeHtml(row.queue)}</td>
-        <td>${escapeHtml(row.scorecardVersion)}</td>
+        <td>${escapeHtml(queueDisplayLabel(row.queue, reportLanguage))}</td>
+        <td>${escapeHtml(scorecardVersionLabel(row.scorecardVersion, reportLanguage))}</td>
         <td>${escapeHtml(row.signalScore)}</td>
         <td>${escapeHtml(row.vendor)}</td>
         <td>${escapeHtml(row.invoiceNumber)}</td>
@@ -550,7 +664,7 @@
     `).join("");
     const tableRows = rows.map((row) => `
       <tr>
-        <td>${escapeHtml(row.queue)}</td>
+        <td>${escapeHtml(queueDisplayLabel(row.queue, reportLanguage))}</td>
         <td>${escapeHtml(row.risk_score)}</td>
         <td>${escapeHtml(row.row_number)}</td>
         <td>${escapeHtml(row.vendor_payee)}</td>
@@ -566,10 +680,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>duplicate_payment_risk_report</title>
+  <title>${escapeHtml(reportLabel(reportLanguage, "title"))}</title>
   <style>
     *{box-sizing:border-box}
-    body{max-width:1180px;font-family:Arial,Helvetica,sans-serif;margin:24px auto;padding:0 16px;color:#1d2521}
+    body{max-width:1180px;font-family:Arial,"Microsoft YaHei","PingFang SC","Noto Sans SC",Helvetica,sans-serif;margin:24px auto;padding:0 16px;color:#1d2521}
     h1{margin-bottom:6px}
     .summary{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
     .summary div{border:1px solid #d9e0da;border-radius:8px;padding:12px;min-width:130px;background:#fff}
@@ -606,12 +720,12 @@
   <p>${escapeHtml(reportLabel(reportLanguage, "generated", { time: generatedAt }))}</p>
   <p><strong>${escapeHtml(reportLabel(reportLanguage, "bilingualNote"))}</strong></p>
   <p><strong>${escapeHtml(reportLabel(reportLanguage, "mlEvidence"))}</strong> ${escapeHtml(mlMethod)}</p>
-  <p><strong>${escapeHtml(reportLabel(reportLanguage, "mlScorecard"))}</strong> ${escapeHtml((scanResult.mlSummary || {}).scorecardVersion || "")}. ${escapeHtml(mlQueuePolicy)}</p>
+  <p><strong>${escapeHtml(reportLabel(reportLanguage, "mlScorecard"))}</strong> ${escapeHtml(scorecardVersionText)}. ${escapeHtml(mlQueuePolicy)}</p>
   <div class="summary">
     <div><strong>${escapeHtml(reportLabel(reportLanguage, "overallRisk"))}</strong><br>${escapeHtml(scanResult.overallRisk)}</div>
-    <div><strong>HOLD</strong><br>${escapeHtml(scanResult.queueCounts.HOLD)}</div>
-    <div><strong>REVIEW</strong><br>${escapeHtml(scanResult.queueCounts.REVIEW)}</div>
-    <div><strong>CLEAR</strong><br>${escapeHtml(scanResult.queueCounts.PASS)}</div>
+    <div><strong>${escapeHtml(queueDisplayLabel("HOLD", reportLanguage))}</strong><br>${escapeHtml(scanResult.queueCounts.HOLD)}</div>
+    <div><strong>${escapeHtml(queueDisplayLabel("REVIEW", reportLanguage))}</strong><br>${escapeHtml(scanResult.queueCounts.REVIEW)}</div>
+    <div><strong>${escapeHtml(queueDisplayLabel("CLEAR", reportLanguage))}</strong><br>${escapeHtml(scanResult.queueCounts.PASS)}</div>
     <div><strong>${escapeHtml(reportLabel(reportLanguage, "currentRows"))}</strong><br>${escapeHtml(scanResult.currentRowCount)}</div>
     <div><strong>${escapeHtml(reportLabel(reportLanguage, "historyRows"))}</strong><br>${escapeHtml(scanResult.historyRowCount)}</div>
     <div><strong>${escapeHtml(reportLabel(reportLanguage, "mlSignals"))}</strong><br>${escapeHtml((scanResult.mlSummary || {}).signalCount || 0)}</div>

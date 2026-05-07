@@ -1,17 +1,17 @@
 const fs = require("fs");
 const path = require("path");
-const { buildSampleScan } = require("./sample_report_builder");
+const { buildSampleScan, writeSampleReport } = require("./sample_report_builder");
 
 const root_dir = path.resolve(__dirname, "..");
 const sample_scan = buildSampleScan(root_dir);
-const chinese_sample_scan = buildSampleScan(root_dir, "zh");
+const generated_sample = writeSampleReport(root_dir);
 const namespace = sample_scan.namespace;
 const current_parse = sample_scan.current_parse;
 const scan_result = sample_scan.scan_result;
 const csv_report = sample_scan.csv_report;
 const html_report = sample_scan.html_report;
-const sample_proof_report = sample_scan.html_report;
-const chinese_sample_proof_report = chinese_sample_scan.html_report;
+const sample_proof_report = generated_sample.html_report;
+const chinese_sample_proof_report = generated_sample.chinese_html_report;
 const chinese_current_text = fs.readFileSync(path.join(root_dir, "sample_data", "fake_current_payment_run_zh_headers.csv"), "utf8");
 const chinese_history_text = fs.readFileSync(path.join(root_dir, "sample_data", "fake_paid_history_zh_headers.csv"), "utf8");
 const chinese_alias_text = fs.readFileSync(path.join(root_dir, "sample_data", "fake_vendor_aliases_zh_headers.csv"), "utf8");
@@ -142,11 +142,11 @@ if (!(scan_result.buyerDecisionGuidance || {}).reasons || scan_result.buyerDecis
   throw new Error("Expected buyer guidance to include evidence reasons.");
 }
 
-if (!csv_report.includes("historical_paid_comparison")) {
+if (!csv_report.includes("Historical paid comparison")) {
   throw new Error("Expected CSV report to include historical paid comparison reason.");
 }
 
-if (!csv_report.includes("ml_scorecard_version") || !csv_report.includes("local_unsupervised_signal_v1")) {
+if (!csv_report.includes("ML scorecard version") || !csv_report.includes("Local unsupervised signal v1")) {
   throw new Error("Expected CSV report to include ML scorecard version.");
 }
 
@@ -154,7 +154,7 @@ if (!html_report.includes("Duplicate Payment Risk Report")) {
   throw new Error("Expected HTML report title.");
 }
 
-if (!html_report.includes("ML scorecard") || !html_report.includes("local_unsupervised_signal_v1")) {
+if (!html_report.includes("ML scorecard") || !html_report.includes("Local unsupervised signal v1")) {
   throw new Error("Expected HTML report to include ML scorecard version.");
 }
 
@@ -165,6 +165,20 @@ if (!html_report.includes("Self-serve ready") || !html_report.includes("Open USD
 if (!sample_proof_report.includes("Duplicate Payment Risk Report") || !sample_proof_report.includes("HOLD")) {
   throw new Error("Expected fake-sample proof report to include buyer-visible risk output.");
 }
+
+const english_report_banned_snippets = [
+  "payment_run_export",
+  "paid_history",
+  "vendor_aliases",
+  "historical_paid_comparison",
+  "local_unsupervised_signal_v1",
+];
+
+english_report_banned_snippets.forEach((snippet) => {
+  if (html_report.includes(snippet) || csv_report.includes(snippet) || sample_proof_report.includes(snippet)) {
+    throw new Error(`English report leaked buyer-visible code text: ${snippet}`);
+  }
+});
 
 if (!chinese_sample_proof_report.includes("付款前重复付款风险复核报告") || !chinese_sample_proof_report.includes("当前付款批次中存在完全重复发票")) {
   throw new Error("Expected Chinese fake-sample proof report to include localized risk output.");
@@ -181,6 +195,28 @@ if (!chinese_html_report.includes("付款前重复付款风险复核报告") || 
 if (chinese_html_report.includes("Exact duplicate invoice in current run") || chinese_html_report.includes("Matches paid history row")) {
   throw new Error("Chinese HTML report should not leak core English rule reasons.");
 }
+
+const chinese_report_banned_snippets = [
+  "Language note:",
+  "Send only headers",
+  "Ask for a first-run",
+  "Move to self-serve",
+  "fake rows",
+  "redacted rows",
+  "payment process",
+  "paid_history",
+  "vendor_aliases",
+  "local_unsupervised_signal_v1",
+];
+
+chinese_report_banned_snippets.forEach((snippet) => {
+  if (chinese_html_report.includes(snippet) || chinese_sample_proof_report.includes(snippet)) {
+    throw new Error(`Chinese HTML report leaked buyer-visible English/code text: ${snippet}`);
+  }
+  if (chinese_csv_report.includes(snippet)) {
+    throw new Error(`Chinese CSV report leaked buyer-visible English/code text: ${snippet}`);
+  }
+});
 
 if (csv_report.includes("PASS") || html_report.includes(">PASS<")) {
   throw new Error("Buyer-visible reports should use CLEAR instead of PASS.");

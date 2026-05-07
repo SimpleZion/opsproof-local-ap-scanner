@@ -142,7 +142,7 @@
     "Non-technical buyer path": "非技术用户购买前路径",
     "1. View public sample report": "1. 查看公开样本报告",
     "2. Download free proof pack": "2. 下载免费验证包",
-    "3. Preview setup only if mapping is unclear": "3. 仅在字段适配不清时预览字段映射与首次运行配置服务",
+    "3. Preview setup only if mapping is unclear": "3. 字段不清时预览配置服务",
     "CSV-first and local-first.": "CSV 优先，本地运行。",
     "Export spreadsheet tabs to CSV, then paste, click-select, or drag the CSV here. The demo is a static browser workflow; start with fake or redacted data before private AP files.": "先把电子表格工作表导出为 CSV，再粘贴、点击选择或拖入这里。本演示是静态浏览器流程；在处理私密 AP 文件前，请先使用模拟数据或脱敏数据。",
     "Fastest proof path: sample report -> fake sample -> queue": "最快验证路径：样本报告 -> 模拟样本 -> 异常队列",
@@ -187,7 +187,7 @@
     "No duplicate-payment risk found.": "未发现重复付款风险。",
     "Recommended buyer action": "建议购买动作",
     "Run the fake sample first.": "请先运行模拟样本。",
-    "The scanner will recommend free proof pack, USD49 self-serve bundle, USD149 setup, or do not buy yet.": "复核工具会建议免费验证包、USD49 自助包、USD149 字段映射与首次运行配置服务，或暂不购买。",
+    "The scanner will recommend free proof pack, USD49 self-serve bundle, USD149 setup, or do not buy yet.": "复核工具会建议免费验证包、49 美元自助包、149 美元字段映射与首次运行配置服务，或暂不购买。",
     "No AP export has been scanned yet.": "尚未扫描 AP 导出。",
     "All": "全部",
     "Download CSV report": "下载 CSV 报告",
@@ -215,7 +215,7 @@
     "Profile evidence": "画像证据",
     "Top local signals": "主要本地信号",
     "When setup is the better path": "何时应选择字段映射与首次运行配置服务",
-    "Example: mapping unclear -> use USD149 setup before self-service.": "示例：字段适配不清 -> 自助前先使用 USD149 字段映射与首次运行配置服务。",
+    "Example: mapping unclear -> use USD149 setup before self-service.": "示例：字段适配不清 -> 自助前先使用 149 美元字段映射与首次运行配置服务。",
     "If your export only has weak labels like `Name`, `Ref`, `Total`, or is missing invoice/date/payment references, the Passport should not push you straight to the bundle.": "如果你的导出只有 `Name`、`Ref`、`Total` 这类弱字段，或者缺少发票、日期、付款参考信息，导出适配报告不应直接建议购买自助包。",
     "2/6 checks ready": "2/6 项检查就绪",
     "3 fields need review": "3 个字段需复核",
@@ -223,7 +223,7 @@
     "vendor + amount detected, invoice/date/payment id unclear": "已识别供应商和金额，但发票、日期、付款 ID 仍不清晰",
     "header meaning should be confirmed before relying on the queue": "依赖异常队列前，应先确认字段含义",
     "send headers, fake rows, or redacted rows for first-run setup": "发送表头、模拟行或脱敏行用于首次运行配置",
-    "Open USD149 setup example path": "打开 USD149 字段映射与首次运行配置服务示例路径",
+    "Open USD149 setup example path": "查看 149 美元配置示例",
     "Queue": "队列",
     "Score": "分数",
     "Vendor / Payee": "供应商 / 收款方",
@@ -236,8 +236,8 @@
     "Turn the sample scan into a repeatable AP review.": "把样本复核转化为可重复执行的 AP 付款前复核流程。",
     "Open the public fake-data report first, then use the free ZIP to run this scanner locally and check whether your export headers are ready. Buy only after the queue, evidence fields, and report shape match your workflow.": "先打开公开模拟数据报告，再使用免费 ZIP 在本地运行复核工具，确认你的导出表头是否就绪。只有当异常队列、证据字段和报告形态与你的工作流匹配后，再考虑购买。",
     "Download free proof pack": "下载免费验证包",
-    "Preview USD149 setup": "预览 USD149 字段映射与首次运行配置服务",
-    "See USD49 self-serve bundle": "查看 USD49 自助包",
+    "Preview USD149 setup": "预览 149 美元配置服务",
+    "See USD49 self-serve bundle": "查看 49 美元自助包",
     "Rules included in this demo": "本演示包含的复核规则",
     "Exact duplicate invoice": "完全重复发票",
     "Same normalized vendor, same raw invoice value, and same amount inside the current run.": "在当前付款批次中，供应商标准化结果、原始发票号和金额完全一致。",
@@ -272,6 +272,11 @@
     },
   };
 
+  const documentTitleText = {
+    en: "Duplicate Payment Risk Scanner Demo",
+    zh: "付款前重复付款风险复核工具演示",
+  };
+
   const bundledSamplePairs = [
     { elementName: "currentInput", englishKey: "currentRun", chineseKey: "currentRunZh" },
     { elementName: "historyInput", englishKey: "history", chineseKey: "historyZh" },
@@ -284,13 +289,13 @@
     "Self-serve ready": "适合自助复核",
     "Setup recommended": "建议先做字段映射与首轮复核配置",
     "Export is not ready for a paid AP review.": "当前导出尚不适合进入付费 AP 复核。",
-    "This export is a fit for the USD49 self-serve bundle.": "当前导出适合使用 USD49 自助复核套件。",
-    "This export likely needs the USD149 first-run setup before self-service.": "当前导出在自助使用前，建议先做 USD149 字段映射与首轮复核配置服务。",
+    "This export is a fit for the USD49 self-serve bundle.": "当前导出适合使用 49 美元自助复核套件。",
+    "This export likely needs the USD149 first-run setup before self-service.": "当前导出在自助使用前，建议先做 149 美元字段映射与首轮复核配置服务。",
     "Core evidence is missing. Use the free proof path first and export stronger AP columns before buying the bundle or setup.": "核心证据字段缺失。购买自助包或字段映射与首次运行配置服务前，先使用免费验证包，并导出更完整的 AP 字段。",
     "The current export has enough field confidence and rule readiness to use the local AP control workflow without a mapping call.": "当前导出已具备足够的字段适配可信度和规则可运行性，可直接使用本地 AP 内控复核流程，无需额外字段适配沟通。",
     "Some checks are ready, but blocked rules or uncertain fields mean a short mapping review would reduce false confidence.": "部分检查已可运行，但被阻塞规则或不确定字段仍可能造成误判；短字段适配复核可以降低错误信心。",
-    "Open USD49 bundle": "打开 USD49 包",
-    "Open USD149 setup": "打开 USD149 字段映射与首轮复核配置服务",
+    "Open USD49 bundle": "查看 49 美元自助包",
+    "Open USD149 setup": "查看 149 美元配置服务",
     "View sample report": "查看样本报告",
     "Download free proof pack": "下载免费验证包",
   };
@@ -351,6 +356,28 @@
     return (values || []).map(translateShortFieldName).join(", ");
   }
 
+  function translateRuleName(value) {
+    if (currentLanguage !== "zh") {
+      return value;
+    }
+    if (namespace.reports && typeof namespace.reports.ruleLabel === "function") {
+      return namespace.reports.ruleLabel(String(value || "").trim(), currentLanguage);
+    }
+    return value;
+  }
+
+  function translateCommaList(value, translator) {
+    if (currentLanguage !== "zh") {
+      return value;
+    }
+    return String(value || "")
+      .split(/,\s*/)
+      .map((item) => item.trim())
+      .filter(Boolean)
+      .map(translator)
+      .join("、");
+  }
+
   function translateProfileSignal(value) {
     const textValue = String(value || "");
     if (currentLanguage !== "zh") {
@@ -404,8 +431,8 @@
       .replace(/^Current export rows: (\d+)\./, "当前导出行数：$1。")
       .replace(/^Paid history rows: (\d+)\./, "已付款历史行数：$1。")
       .replace(/^Alias mappings loaded: (\d+)\./, "已加载别名映射：$1。")
-      .replace(/^Missing core fields: (.+)\.$/, "缺少核心字段：$1。")
-      .replace(/^Blocked or partial checks: (.+)\.$/, "阻塞或部分就绪检查：$1。")
+      .replace(/^Missing core fields: (.+)\.$/, (_all, fields) => `缺少核心字段：${translateCommaList(fields, translateShortFieldName)}。`)
+      .replace(/^Blocked or partial checks: (.+)\.$/, (_all, rules) => `阻塞或部分就绪检查：${translateCommaList(rules, translateRuleName)}。`)
       .replace("Too few checks are ready to make a paid review useful.", "可运行检查太少，付费复核暂时价值有限。")
       .replace("Field confidence should be confirmed before relying on the queue.", "依赖异常队列前，应先确认字段适配可信度。")
       .replace("Run the free proof pack with fake or redacted rows.", "先用模拟数据行或脱敏行运行免费验证包。")
@@ -447,12 +474,12 @@
 
   function fieldLabel(value) {
     const labels = {
-      vendor: { en: "vendor", zh: "供应商" },
-      invoice_number: { en: "invoice number", zh: "发票号" },
-      amount: { en: "amount", zh: "金额" },
-      date: { en: "date", zh: "日期" },
-      payment_id: { en: "payment id", zh: "付款 ID" },
-      status: { en: "status", zh: "状态" },
+      vendor: { en: "Vendor / Payee", zh: "供应商/收款方" },
+      invoice_number: { en: "Invoice number", zh: "发票号" },
+      amount: { en: "Amount", zh: "金额" },
+      date: { en: "Date", zh: "日期" },
+      payment_id: { en: "Payment ID", zh: "付款 ID" },
+      status: { en: "Status", zh: "状态" },
     };
     return (labels[value] || { en: String(value).replace("_", " ") })[currentLanguage] || String(value).replace("_", " ");
   }
@@ -513,6 +540,7 @@
     const previousLanguage = currentLanguage;
     currentLanguage = language === "zh" ? "zh" : "en";
     document.documentElement.lang = currentLanguage === "zh" ? "zh-CN" : "en";
+    document.title = documentTitleText[currentLanguage];
     document.querySelectorAll("[data-language]").forEach((button) => {
       button.setAttribute("aria-pressed", String(button.dataset.language === currentLanguage));
     });
