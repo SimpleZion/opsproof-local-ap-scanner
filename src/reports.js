@@ -318,7 +318,7 @@
     actionEvidence: { en: "What triggered it", zh: "触发依据" },
     buyerDecision: { en: "Buyer decision", zh: "下一步建议" },
     runBeforeBuying: { en: "Run scanner before buying.", zh: "购买前请先运行本地复核。" },
-    decisionFallback: { en: "Use the field, rule, and signal evidence below before deciding whether to buy the bundle or setup service.", zh: "决定是否购买自助包或字段映射与首次运行配置服务前，请先查看下方字段、规则和信号证据。" },
+    decisionFallback: { en: "Use the field, rule, and signal evidence below before deciding whether to buy the bundle or setup service.", zh: "决定是否购买自助包或首轮字段映射与运行配置服务前，请先查看下方字段、规则和信号证据。" },
     downloadFreeProof: { en: "Download free proof pack", zh: "下载免费验证包" },
     viewSample: { en: "View sample report", zh: "查看样本报告" },
     why: { en: "Why this recommendation", zh: "推荐原因" },
@@ -361,11 +361,11 @@
   const buyerText = {
     "Do not buy yet": "暂不购买",
     "Self-serve ready": "适合自助复核",
-    "Setup recommended": "建议先做字段映射与首次运行配置服务",
+    "Setup recommended": "建议先做首轮字段映射与运行配置服务",
     "Export is not ready for a paid AP review.": "当前导出尚不适合进入付费 AP 复核。",
     "This export is a fit for the USD49 self-serve bundle.": "当前导出适合使用 49 美元自助复核套件。",
-    "This export likely needs the USD149 first-run setup before self-service.": "当前导出在自助使用前，建议先做 149 美元字段映射与首次运行配置服务。",
-    "Core evidence is missing. Use the free proof path first and export stronger AP columns before buying the bundle or setup.": "核心证据字段缺失。购买自助包或字段映射与首次运行配置服务前，先使用免费验证包，并导出更完整的 AP 字段。",
+    "This export likely needs the USD149 first-run setup before self-service.": "当前导出在自助使用前，建议先做 149 美元首轮字段映射与运行配置服务。",
+    "Core evidence is missing. Use the free proof path first and export stronger AP columns before buying the bundle or setup.": "核心证据字段缺失。购买自助包或首轮字段映射与运行配置服务前，先使用免费验证包，并导出更完整的 AP 字段。",
     "The current export has enough field confidence and rule readiness to use the local AP control workflow without a mapping call.": "当前导出已具备足够的字段适配可信度和规则可运行性，可直接使用本地 AP 内控复核流程，无需额外字段适配沟通。",
     "Some checks are ready, but blocked rules or uncertain fields mean a short mapping review would reduce false confidence.": "部分检查已可运行，但被阻塞规则或不确定字段仍可能造成误判；短字段适配复核可以降低错误信心。",
     "Open USD49 bundle": "查看 49 美元自助包",
@@ -479,15 +479,15 @@
       .replace("Export vendor/payee, invoice number, amount, and payment or bill date columns.", "导出供应商/收款方、发票号、金额，以及付款日期或账单日期字段。")
       .replace("Run the header checker again before sending any private AP rows.", "发送任何私密 AP 明细前，先重新运行表头检查。")
       .replace("Buy setup only after the passport shows enough fields to review.", "只有在导出适配报告显示字段足够复核后，再考虑配置服务。")
-      .replace("Export vendor/payee, invoice, amount, date, payment id, and status if available.", "尽量导出供应商/收款方、发票、金额、日期、付款 ID 和状态。")
-      .replace("Use setup only after headers or sample rows show enough AP context.", "只有在表头或样本行呈现足够 AP 上下文后，再使用字段映射与首次运行配置服务。")
+      .replace("Export vendor/payee, invoice, amount, date, payment id, and status if available.", "尽量导出供应商/收款方、发票、金额、日期、付款编号和状态。")
+      .replace("Use setup only after headers or sample rows show enough AP context.", "只有在表头或样本行呈现足够 AP 上下文后，再使用首轮字段映射与运行配置服务。")
       .replace("Download the bundle and run it against a redacted first export.", "下载自助包，并用第一份脱敏导出文件运行。")
       .replace("Use HOLD rows as the payment stop list and REVIEW rows as the AP follow-up list.", "将 HOLD 行作为付款暂停清单，将 REVIEW 行作为 AP 跟进复核清单。")
       .replace("Keep the CSV/HTML report as local evidence for the run.", "将 CSV/HTML 报告作为本次付款前复核的本地证据留存。")
       .replace("Review HOLD rows first, then REVIEW rows before any payment release.", "付款放行前，先复核 HOLD 行，再复核 REVIEW 行。")
       .replace("Save the HTML report and CSV queue as controller evidence.", "保存 HTML 报告和 CSV 队列，作为财务负责人复核证据。")
       .replace("Use setup only if your live export differs from this sample-ready structure.", "只有当你的真实导出与这个样本结构不同，再考虑配置服务。")
-      .replace("Send headers or redacted rows for first-run setup.", "发送表头或脱敏行用于首次运行字段映射与首次运行配置服务。")
+      .replace("Send headers or redacted rows for first-run setup.", "发送表头或脱敏行，用于首轮字段映射与运行配置服务。")
       .replace("Send only headers, fake rows, or redacted rows for mapping review.", "只发送表头、模拟行或脱敏行用于字段映射复核。")
       .replace("Ask for a first-run readiness note before using the queue in a payment process.", "在把异常队列用于付款流程前，先获取首轮就绪说明。")
       .replace("Move to self-serve only after core checks and history comparison are ready.", "只有在核心检查和历史已付款比对都就绪后，再转为自助使用。")

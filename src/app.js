@@ -65,7 +65,7 @@
     confidence: { en: "{score}% confidence", zh: "{score}% 置信度" },
     buyerDecision: { en: "Buyer decision", zh: "下一步建议" },
     runScannerFirst: { en: "Run scanner first.", zh: "请先运行本地复核。" },
-    defaultDecisionSummary: { en: "The scanner will recommend whether to use the free proof path, the self-serve bundle, or the first-run setup service.", zh: "复核工具会建议使用免费验证包、自助复核套件、首次运行字段映射与首次运行配置服务，或暂不购买。" },
+    defaultDecisionSummary: { en: "The scanner will recommend whether to use the free proof path, the self-serve bundle, or the first-run setup service.", zh: "复核工具会建议使用免费验证包、自助复核套件、首轮字段映射与运行配置服务，或暂不购买。" },
     downloadFreeProofPack: { en: "Download free proof pack", zh: "下载免费验证包" },
     viewSampleReport: { en: "View sample report", zh: "查看样本报告" },
     recommendedBuyerAction: { en: "Recommended buyer action: {label}", zh: "建议购买动作：{label}" },
@@ -87,7 +87,7 @@
     pasteHeaders: { en: "Paste headers to see ready, partial, and blocked rules.", zh: "粘贴表头，查看哪些规则已就绪、部分就绪或被字段缺口阻塞。" },
     pasteHeadersFirst: { en: "Paste export headers first.", zh: "请先粘贴导出表头。" },
     missing: { en: "Missing", zh: "缺失" },
-    readyForFirstRun: { en: "Ready for fake-row or redacted-row first run.", zh: "可用于模拟数据行或脱敏行的首次运行。" },
+    readyForFirstRun: { en: "Ready for fake-row or redacted-row first run.", zh: "可用于模拟数据行或脱敏行的首轮运行。" },
     missingFields: { en: "Missing: {fields}", zh: "缺失：{fields}" },
     nextFakeRun: { en: "Next step: run fake rows or redacted rows through the scanner.", zh: "下一步：用模拟数据行或脱敏行运行本地复核工具。" },
     nextExportRequest: { en: "Next export request", zh: "下一次导出建议" },
@@ -187,15 +187,16 @@
     "No duplicate-payment risk found.": "未发现重复付款风险。",
     "Recommended buyer action": "建议购买动作",
     "Run the fake sample first.": "请先运行模拟样本。",
-    "The scanner will recommend free proof pack, USD49 self-serve bundle, USD149 setup, or do not buy yet.": "复核工具会建议免费验证包、49 美元自助包、149 美元字段映射与首次运行配置服务，或暂不购买。",
+    "The scanner will recommend free proof pack, USD49 self-serve bundle, USD149 setup, or do not buy yet.": "复核工具会建议免费验证包、49 美元自助包、149 美元首轮字段映射与运行配置服务，或暂不购买。",
     "No AP export has been scanned yet.": "尚未扫描 AP 导出。",
     "All": "全部",
     "Download CSV report": "下载 CSV 报告",
     "Download HTML report": "下载 HTML 报告",
     "Detected field mapping": "检测到的字段映射",
-    "Export 导出适配报告": "导出 导出适配报告",
+    "Export Evidence Passport": "导出适配报告（Evidence Passport）",
+    "Export 导出适配报告": "导出适配报告（Evidence Passport）",
     "Field fit, rule readiness, and local signals before any setup call.": "在任何设置沟通前，先检查字段适配、规则可运行性和本地复核信号。",
-    "Use this section to decide whether your AP export is ready for a first-run review. It stays local and does not change the HOLD / REVIEW / CLEAR queue.": "用这一部分判断你的 AP 导出是否适合首次运行复核。它完全留在本地，也不会改变 HOLD / REVIEW / CLEAR 异常队列结论。",
+    "Use this section to decide whether your AP export is ready for a first-run review. It stays local and does not change the HOLD / REVIEW / CLEAR queue.": "用这一部分判断你的 AP 导出是否适合进入首轮付款前复核。它完全留在本地，也不会改变 HOLD / REVIEW / CLEAR 异常队列结论。",
     "Need mapping help?": "需要映射帮助？",
     "Source profile": "来源画像",
     "Run scanner": "运行复核工具",
@@ -214,15 +215,15 @@
     "Next steps": "后续步骤",
     "Profile evidence": "画像证据",
     "Top local signals": "主要本地信号",
-    "When setup is the better path": "何时应选择字段映射与首次运行配置服务",
-    "Example: mapping unclear -> use USD149 setup before self-service.": "示例：字段适配不清 -> 自助前先使用 149 美元字段映射与首次运行配置服务。",
+    "When setup is the better path": "何时应选择首轮字段映射与运行配置服务",
+    "Example: mapping unclear -> use USD149 setup before self-service.": "示例：字段适配不清 -> 自助前先使用 149 美元首轮字段映射与运行配置服务。",
     "If your export only has weak labels like `Name`, `Ref`, `Total`, or is missing invoice/date/payment references, the Passport should not push you straight to the bundle.": "如果你的导出只有 `Name`、`Ref`、`Total` 这类弱字段，或者缺少发票、日期、付款参考信息，导出适配报告不应直接建议购买自助包。",
     "2/6 checks ready": "2/6 项检查就绪",
     "3 fields need review": "3 个字段需复核",
     "Recommended action": "建议操作",
-    "vendor + amount detected, invoice/date/payment id unclear": "已识别供应商和金额，但发票、日期、付款 ID 仍不清晰",
+    "vendor + amount detected, invoice/date/payment id unclear": "已识别供应商和金额，但发票、日期、付款编号仍不清晰",
     "header meaning should be confirmed before relying on the queue": "依赖异常队列前，应先确认字段含义",
-    "send headers, fake rows, or redacted rows for first-run setup": "发送表头、模拟行或脱敏行用于首次运行配置",
+    "send headers, fake rows, or redacted rows for first-run setup": "发送表头、模拟行或脱敏行用于首轮配置",
     "Open USD149 setup example path": "查看 149 美元配置示例",
     "Queue": "队列",
     "Score": "分数",
@@ -291,7 +292,7 @@
     "Export is not ready for a paid AP review.": "当前导出尚不适合进入付费 AP 复核。",
     "This export is a fit for the USD49 self-serve bundle.": "当前导出适合使用 49 美元自助复核套件。",
     "This export likely needs the USD149 first-run setup before self-service.": "当前导出在自助使用前，建议先做 149 美元字段映射与首轮复核配置服务。",
-    "Core evidence is missing. Use the free proof path first and export stronger AP columns before buying the bundle or setup.": "核心证据字段缺失。购买自助包或字段映射与首次运行配置服务前，先使用免费验证包，并导出更完整的 AP 字段。",
+    "Core evidence is missing. Use the free proof path first and export stronger AP columns before buying the bundle or setup.": "核心证据字段缺失。购买自助包或字段映射与首轮运行配置服务前，先使用免费验证包，并导出更完整的 AP 字段。",
     "The current export has enough field confidence and rule readiness to use the local AP control workflow without a mapping call.": "当前导出已具备足够的字段适配可信度和规则可运行性，可直接使用本地 AP 内控复核流程，无需额外字段适配沟通。",
     "Some checks are ready, but blocked rules or uncertain fields mean a short mapping review would reduce false confidence.": "部分检查已可运行，但被阻塞规则或不确定字段仍可能造成误判；短字段适配复核可以降低错误信心。",
     "Open USD49 bundle": "查看 49 美元自助包",
@@ -436,8 +437,8 @@
       .replace("Too few checks are ready to make a paid review useful.", "可运行检查太少，付费复核暂时价值有限。")
       .replace("Field confidence should be confirmed before relying on the queue.", "依赖异常队列前，应先确认字段适配可信度。")
       .replace("Run the free proof pack with fake or redacted rows.", "先用模拟数据行或脱敏行运行免费验证包。")
-      .replace("Export vendor/payee, invoice, amount, date, payment id, and status if available.", "尽量导出供应商/收款方、发票、金额、日期、付款 ID 和状态。")
-      .replace("Use setup only after headers or sample rows show enough AP context.", "只有在表头或样本行呈现足够 AP 上下文后，再使用字段映射与首次运行配置服务。")
+      .replace("Export vendor/payee, invoice, amount, date, payment id, and status if available.", "尽量导出供应商/收款方、发票、金额、日期、付款编号和状态。")
+      .replace("Use setup only after headers or sample rows show enough AP context.", "只有在表头或样本行呈现足够 AP 上下文后，再使用字段映射与首轮运行配置服务。")
       .replace("Download the bundle and run it against a redacted first export.", "下载自助包，并用第一份脱敏导出文件运行。")
       .replace("Use HOLD rows as the payment stop list and REVIEW rows as the AP follow-up list.", "将 HOLD 行作为付款暂停清单，将 REVIEW 行作为 AP 跟进复核清单。")
       .replace("Keep the CSV/HTML report as local evidence for the run.", "将 CSV/HTML 报告作为本次付款前复核的本地证据留存。")
@@ -478,7 +479,7 @@
       invoice_number: { en: "Invoice number", zh: "发票号" },
       amount: { en: "Amount", zh: "金额" },
       date: { en: "Date", zh: "日期" },
-      payment_id: { en: "Payment ID", zh: "付款 ID" },
+      payment_id: { en: "Payment ID", zh: "付款编号" },
       status: { en: "Status", zh: "状态" },
     };
     return (labels[value] || { en: String(value).replace("_", " ") })[currentLanguage] || String(value).replace("_", " ");
@@ -516,6 +517,34 @@
     });
   }
 
+  function fallbackSampleReportHref() {
+    return currentLanguage === "zh"
+      ? "https://tools.simplezion.com/sample-report/zh.html"
+      : "https://tools.simplezion.com/sample-report/";
+  }
+
+  function localizedSampleReportHref() {
+    const sampleReportLink = document.querySelector("[data-sample-report-link]");
+    if (!sampleReportLink) {
+      return fallbackSampleReportHref();
+    }
+    const languageHref = currentLanguage === "zh"
+      ? sampleReportLink.dataset.sampleReportZh
+      : sampleReportLink.dataset.sampleReportEn;
+    return languageHref || sampleReportLink.getAttribute("href") || fallbackSampleReportHref();
+  }
+
+  function applyLocalizedLinks() {
+    document.querySelectorAll("[data-sample-report-link]").forEach((link) => {
+      const languageHref = currentLanguage === "zh"
+        ? link.dataset.sampleReportZh
+        : link.dataset.sampleReportEn;
+      if (languageHref) {
+        link.setAttribute("href", languageHref);
+      }
+    });
+  }
+
   function refreshBundledSamplesForLanguage(previousLanguage) {
     if (previousLanguage === currentLanguage) {
       return;
@@ -546,6 +575,7 @@
     });
     applyStaticTranslations();
     applyLanguageAttributes();
+    applyLocalizedLinks();
     refreshBundledSamplesForLanguage(previousLanguage);
     namespace.i18n = {
       getLanguage: () => currentLanguage,
@@ -605,9 +635,7 @@
   }
 
   function sampleReportHref() {
-    return currentLanguage === "zh"
-      ? "https://tools.simplezion.com/sample-report/zh.html"
-      : "https://tools.simplezion.com/sample-report/";
+    return localizedSampleReportHref();
   }
 
   function renderBuyerDecisionGuidance(guidance) {

@@ -56,6 +56,8 @@ const common_china_header_readiness = namespace.fieldMapping.analyzeHeaderReadin
   "付款申请单号",
   "付款进度",
 ]);
+const index_html = fs.readFileSync(path.join(root_dir, "index.html"), "utf8");
+const app_js = fs.readFileSync(path.join(root_dir, "src", "app.js"), "utf8");
 
 const detected_fields = Object.values(scan_result.currentMapping.mapping).filter(Boolean).length;
 
@@ -96,6 +98,14 @@ if (
 
 if (common_china_header_readiness.readyCount < 6 || common_china_header_readiness.blockedCount !== 0) {
   throw new Error("Expected common China AP headers to unlock all readiness rules.");
+}
+
+if (!index_html.includes("data-sample-report-link") || !index_html.includes("sample_duplicate_payment_risk_report_zh.html")) {
+  throw new Error("Expected browser page to expose a Chinese sample-report link for Chinese mode.");
+}
+
+if (!app_js.includes("localizedSampleReportHref") || !app_js.includes("[data-sample-report-link]")) {
+  throw new Error("Expected app localization to switch sample-report hrefs by language.");
 }
 
 if (scan_result.queueCounts.HOLD < 1) {

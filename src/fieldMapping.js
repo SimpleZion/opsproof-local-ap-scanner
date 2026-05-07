@@ -342,7 +342,7 @@
         missingFields,
         weakFields,
         nextExport: missingFields.length > 0 ? rule.nextExport : "Ready for a fake-row or redacted-row first run.",
-        nextExportZh: missingFields.length > 0 ? rule.nextExportZh : "可进入模拟数据行或脱敏行的首次运行。",
+        nextExportZh: missingFields.length > 0 ? rule.nextExportZh : "可进入模拟数据行或脱敏行的首轮运行。",
       };
     });
     const nextExportRequests = ruleRows

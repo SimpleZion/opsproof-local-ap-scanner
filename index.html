@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none';">
   <meta name="description" content="Local browser duplicate-payment risk scanner demo with explainable ML-assisted anomaly signals for fake, pasted, or locally selected AP CSV payment runs. No cloud upload or Python setup is needed for the first path.">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./styles.css?v=202605061930">
+  <link rel="stylesheet" href="./styles.css?v=202605070045">
 </head>
 <body>
   <a class="skip-link" href="#scanner">Skip to scanner</a>
@@ -24,7 +24,7 @@
       <a href="#scanner">Run</a>
       <a href="#header-check">Header check</a>
       <a href="#results">Results</a>
-      <a href="./sample_output/sample_duplicate_payment_risk_report.html">Sample report</a>
+      <a href="./sample_output/sample_duplicate_payment_risk_report.html" data-sample-report-link data-sample-report-en="./sample_output/sample_duplicate_payment_risk_report.html" data-sample-report-zh="./sample_output/sample_duplicate_payment_risk_report_zh.html">Sample report</a>
       <a href="#next-step">Next step</a>
       <a href="#privacy">Privacy</a>
       <a href="#rules">Rules</a>
@@ -57,7 +57,7 @@
 
       <div class="buyer-proof-path" aria-label="Recommended buyer path before setup">
         <strong>Non-technical buyer path</strong>
-        <a href="./sample_output/sample_duplicate_payment_risk_report.html">1. View public sample report</a>
+        <a href="./sample_output/sample_duplicate_payment_risk_report.html" data-sample-report-link data-sample-report-en="./sample_output/sample_duplicate_payment_risk_report.html" data-sample-report-zh="./sample_output/sample_duplicate_payment_risk_report_zh.html">1. View public sample report</a>
         <a href="https://payhip.com/b/6UYfe">2. Download free proof pack</a>
         <a href="https://tools.simplezion.com/setup-service/">3. Preview setup only if mapping is unclear</a>
       </div>
@@ -73,7 +73,7 @@
           <span>Inspect the public fake-data report first, then load bundled fake CSVs and run the scanner. No account, ERP login, bank connection, cloud upload, or Python step is needed.</span>
         </div>
         <div class="quick-proof-actions">
-          <a class="button primary" href="./sample_output/sample_duplicate_payment_risk_report.html">View public sample report</a>
+          <a class="button primary" href="./sample_output/sample_duplicate_payment_risk_report.html" data-sample-report-link data-sample-report-en="./sample_output/sample_duplicate_payment_risk_report.html" data-sample-report-zh="./sample_output/sample_duplicate_payment_risk_report_zh.html">View public sample report</a>
           <button class="button secondary" type="button" id="load-all-samples">Load fake samples and run</button>
         </div>
       </div>
@@ -328,7 +328,7 @@
         <p>Open the public fake-data report first, then use the free ZIP to run this scanner locally and check whether your export headers are ready. Buy only after the queue, evidence fields, and report shape match your workflow.</p>
       </div>
       <div class="next-step-actions">
-        <a class="button secondary" href="./sample_output/sample_duplicate_payment_risk_report.html">View public sample report</a>
+        <a class="button secondary" href="./sample_output/sample_duplicate_payment_risk_report.html" data-sample-report-link data-sample-report-en="./sample_output/sample_duplicate_payment_risk_report.html" data-sample-report-zh="./sample_output/sample_duplicate_payment_risk_report_zh.html">View public sample report</a>
         <a class="button primary" href="https://payhip.com/b/6UYfe">Download free proof pack</a>
         <a class="button secondary" href="https://tools.simplezion.com/setup-service/">Preview USD149 setup</a>
         <a class="button ghost" href="https://payhip.com/b/n6oUD">See USD49 self-serve bundle</a>
@@ -348,13 +348,13 @@
     </section>
   </main>
 
-  <script src="./src/csv.js?v=202605061930"></script>
-  <script src="./src/fieldMapping.js?v=202605061930"></script>
-  <script src="./src/fieldConfidenceLedger.js?v=202605061930"></script>
-  <script src="./src/vendorNormalization.js?v=202605061930"></script>
-  <script src="./src/scanner.js?v=202605061930"></script>
-  <script src="./src/reports.js?v=202605061930"></script>
-  <script src="./src/samples.js?v=202605061930"></script>
-  <script src="./src/app.js?v=202605061930"></script>
+  <script src="./src/csv.js?v=202605070045"></script>
+  <script src="./src/fieldMapping.js?v=202605070045"></script>
+  <script src="./src/fieldConfidenceLedger.js?v=202605070045"></script>
+  <script src="./src/vendorNormalization.js?v=202605070045"></script>
+  <script src="./src/scanner.js?v=202605070045"></script>
+  <script src="./src/reports.js?v=202605070045"></script>
+  <script src="./src/samples.js?v=202605070045"></script>
+  <script src="./src/app.js?v=202605070045"></script>
 </body>
 </html>
