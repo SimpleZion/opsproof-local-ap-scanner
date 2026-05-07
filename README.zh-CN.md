@@ -1,5 +1,7 @@
 # OpsProof 本地应付扫描器
 
+[![smoke](https://github.com/SimpleZion/opsproof-local-ap-scanner/actions/workflows/smoke.yml/badge.svg)](https://github.com/SimpleZion/opsproof-local-ap-scanner/actions/workflows/smoke.yml)
+
 这是一个本地优先的应付账款付款前重复付款风险扫描器，用于在付款批次放行前检查 CSV 导出中的重复付款、供应商/收款方别名、历史已付款匹配和字段适配情况。
 
 ![扫描器首屏](docs/assets/scanner-first-view.png)
@@ -8,13 +10,15 @@
 
 OpsProof Local AP Scanner 是一个静态浏览器工具。你可以直接打开 `index.html`，先用模拟数据、脱敏数据或仅字段表头做检查，再决定是否需要更完整的自助工具包或字段映射服务。
 
+源码公开是为了让 AP 团队在使用自己的导出结构前，先检查本地运行和无上传边界。
+
 第一条路径不需要 Python、不需要 ERP 登录、不需要银行连接，也不需要把付款数据上传到云端。
 
 ## 快速开始
 
 1. 下载或克隆本仓库。
 2. 用 Chrome 或 Edge 直接打开 `index.html`。
-3. 点击 `Load fake samples and run`。
+3. 点击 `Load demo samples and run`。
 4. 查看 HOLD / REVIEW / CLEAR 队列。
 5. 下载 CSV 或 HTML 报告。
 

@@ -1,5 +1,7 @@
 # OpsProof Local AP Scanner
 
+[![smoke](https://github.com/SimpleZion/opsproof-local-ap-scanner/actions/workflows/smoke.yml/badge.svg)](https://github.com/SimpleZion/opsproof-local-ap-scanner/actions/workflows/smoke.yml)
+
 Local-first duplicate-payment risk scanner for accounts payable payment-run exports.
 
 中文说明见 [README.zh-CN.md](README.zh-CN.md).
@@ -8,9 +10,11 @@ Local-first duplicate-payment risk scanner for accounts payable payment-run expo
 
 ## What This Is
 
-OpsProof Local AP Scanner is a static browser tool for reviewing fake, redacted, or local AP CSV exports before a payment run goes out.
+OpsProof Local AP Scanner is a static browser tool for reviewing demo, redacted, or local AP CSV exports before a payment run goes out.
 
 It is designed for bookkeepers, SMB controllers, finance operations teams, and AP consultants who want an explainable HOLD / REVIEW / CLEAR queue without sending payment data to a cloud service.
+
+The source is public so AP teams can inspect the local/no-upload scanner boundary before using it with their own export shapes.
 
 The first path requires no Python, no ERP login, no bank connection, and no server.
 
@@ -18,11 +22,11 @@ The first path requires no Python, no ERP login, no bank connection, and no serv
 
 1. Download or clone this repository.
 2. Open `index.html` directly in Chrome or Edge.
-3. Click `Load fake samples and run`.
+3. Click `Load demo samples and run`.
 4. Review HOLD / REVIEW / CLEAR.
 5. Download the CSV or HTML report.
 
-You can also inspect the bundled fake-data report first:
+You can also inspect the bundled demo-data report first:
 
 - [English sample report](sample_output/sample_duplicate_payment_risk_report.html)
 - [Chinese sample report](sample_output/sample_duplicate_payment_risk_report_zh.html)
@@ -64,7 +68,7 @@ This repository is designed around a local-first review path:
 - No storage writes.
 - Network APIs are blocked inside the page after startup.
 
-Use fake, sample, redacted, or header-only exports first. Do not paste private vendor, bank, tax, payroll, customer, or payment-card data into any public issue.
+Use demo, sample, redacted, or header-only exports first. Do not paste private vendor, bank, tax, payroll, customer, or payment-card data into any public issue.
 
 ## Tests
 

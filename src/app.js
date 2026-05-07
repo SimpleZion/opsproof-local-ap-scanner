@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const namespace = window.DPRS || {};
   let lastScanResult = null;
   let activeQueue = "ALL";
@@ -83,13 +83,13 @@
     noHeaderGaps: { en: "No core AP header gaps found in the current export.", zh: "当前导出未发现核心 AP 表头缺口。" },
     signalLine: { en: "row {row}: {score} signal", zh: "第 {row} 行：{score} 分信号" },
     reviewSignalAvailable: { en: "Review signal available.", zh: "存在可复核信号。" },
-    noSignals: { en: "No local ML-assisted signal exceeded the review threshold. Deterministic duplicate rules still control the queue.", zh: "没有本地 ML 辅助信号超过复核阈值。异常队列仍由确定性重复付款规则控制。" },
+    noSignals: { en: "No local review signal exceeded the review threshold. Deterministic duplicate rules still control the queue.", zh: "没有本地复核信号超过复核阈值。异常队列仍由确定性重复付款规则控制。" },
     pasteHeaders: { en: "Paste headers to see ready, partial, and blocked rules.", zh: "粘贴表头，查看哪些规则已就绪、部分就绪或被字段缺口阻塞。" },
     pasteHeadersFirst: { en: "Paste export headers first.", zh: "请先粘贴导出表头。" },
     missing: { en: "Missing", zh: "缺失" },
-    readyForFirstRun: { en: "Ready for fake-row or redacted-row first run.", zh: "可用于模拟数据行或脱敏行的首轮运行。" },
+    readyForFirstRun: { en: "Ready for demo-row or redacted-row first run.", zh: "可用于模拟数据行或脱敏行的首轮运行。" },
     missingFields: { en: "Missing: {fields}", zh: "缺失：{fields}" },
-    nextFakeRun: { en: "Next step: run fake rows or redacted rows through the scanner.", zh: "下一步：用模拟数据行或脱敏行运行本地复核工具。" },
+    nextFakeRun: { en: "Next step: run demo rows or redacted rows through the scanner.", zh: "下一步：用模拟数据行或脱敏行运行本地复核工具。" },
     nextExportRequest: { en: "Next export request", zh: "下一次导出建议" },
     headerComplete: { en: "Header check complete: {ready} ready, {blocked} blocked.", zh: "表头检查完成：{ready} 个就绪，{blocked} 个阻塞。" },
     emptyQueueBuild: { en: "Run the scanner to build a review queue.", zh: "运行本地复核工具以生成异常队列。" },
@@ -97,13 +97,13 @@
     highRisk: { en: "High-risk duplicate evidence found. Review HOLD rows before payment.", zh: "发现高风险重复付款证据。付款放行前请优先复核 HOLD 行。" },
     noHold: { en: "No HOLD rows found by this local browser scan. Review any REVIEW rows before release.", zh: "本地浏览器复核未生成 HOLD 行。付款放行前仍需复核所有 REVIEW 行。" },
     reportDisabled: { en: "Run the scanner to enable CSV and HTML reports.", zh: "运行本地复核后可下载 CSV 和 HTML 报告。" },
-    reportReady: { en: "Report ready: {rows} current rows scanned, {hold} HOLD, {review} REVIEW, {signals} ML-assisted local signals. Download CSV or HTML.", zh: "报告已就绪：已复核 {rows} 条当前付款明细，{hold} 个 HOLD，{review} 个 REVIEW，{signals} 个本地 ML 辅助信号。可下载 CSV 或 HTML。" },
+    reportReady: { en: "Report ready: {rows} current rows scanned, {hold} HOLD, {review} REVIEW, {signals} local review signals. Download CSV or HTML.", zh: "报告已就绪：已复核 {rows} 条当前付款明细，{hold} 个 HOLD，{review} 个 REVIEW，{signals} 个本地复核信号。可下载 CSV 或 HTML。" },
     currentCsvRequired: { en: "Current payment run CSV is required.", zh: "必须提供当前付款批次 CSV。" },
     scannedRows: { en: "Scanned {rows} current row(s).", zh: "已扫描 {rows} 条当前付款行。" },
     csvLoaded: { en: "CSV loaded locally. Run the scanner when ready.", zh: "CSV 已在本地加载。准备好后运行复核工具。" },
-    currentSampleLoaded: { en: "Loaded fake current payment run sample.", zh: "已加载当前付款批次模拟样本。" },
-    historySampleLoaded: { en: "Loaded fake paid history sample.", zh: "已加载已付款历史模拟样本。" },
-    aliasSampleLoaded: { en: "Loaded fake vendor alias sample.", zh: "已加载供应商别名模拟样本。" },
+    currentSampleLoaded: { en: "Loaded demo current payment run sample.", zh: "已加载当前付款批次模拟样本。" },
+    historySampleLoaded: { en: "Loaded demo paid history sample.", zh: "已加载已付款历史模拟样本。" },
+    aliasSampleLoaded: { en: "Loaded demo vendor alias sample.", zh: "已加载供应商别名模拟样本。" },
     noInputScanned: { en: "No input scanned yet.", zh: "尚未扫描输入。" },
     clearedInputs: { en: "Cleared local inputs.", zh: "已清空本地输入。" },
     vendorPayee: { en: "Vendor / Payee", zh: "供应商 / 收款方" },
@@ -130,11 +130,11 @@
     "Privacy": "隐私",
     "Rules": "规则",
     "View the sample report first. Then run a local AP CSV check.": "先查看样例报告，再运行本地 AP CSV 付款前复核。",
-    "Start with the public fake-data report, then load the fake sample or choose local CSVs in this browser. The scanner maps common AP fields, builds HOLD / REVIEW / CLEAR, adds explainable local ML-assisted anomaly signals, and enables downloadable CSV and HTML reports without Python or cloud upload.": "先看公开模拟数据报告，再加载模拟样本或在本浏览器中选择本地 CSV。复核工具会自动适配常见 AP 字段，生成 HOLD / REVIEW / CLEAR 队列，补充可解释的本地 ML 辅助异常信号，并在无需 Python、无需云上传的情况下导出 CSV 和 HTML 报告。",
+    "Start with the public demo-data report, then load the demo sample or choose local CSVs in this browser. The scanner maps common AP fields, builds HOLD / REVIEW / CLEAR, adds explainable local review signals, and enables downloadable CSV and HTML reports without Python or cloud upload.": "先看公开模拟数据报告，再加载模拟样本或在本浏览器中选择本地 CSV。复核工具会自动适配常见 AP 字段，生成 HOLD / REVIEW / CLEAR 队列，补充可解释的本地复核信号，并在无需 Python、无需云上传的情况下导出 CSV 和 HTML 报告。",
     "Find duplicate payment risk before a payment run goes out.": "在付款批次放行前识别重复付款风险。",
     "Local-first boundary": "本地优先边界",
     "CSV scan is designed to run in this browser": "CSV 扫描设计为在此浏览器中运行",
-    "Inputs are parsed in this static page. No ERP login, bank connection, account login, or cloud upload is needed for the scanner workflow. Use fake or redacted rows first.": "输入只会在这个静态页面中解析。复核流程不需要 ERP 登录、银行连接、账号登录或云端上传；请优先使用模拟行或脱敏行。",
+    "Inputs are parsed in this static page. No ERP login, bank connection, account login, or cloud upload is needed for the scanner workflow. Use demo or redacted rows first.": "输入只会在这个静态页面中解析。复核流程不需要 ERP 登录、银行连接、账号登录或云端上传；请优先使用模拟行或脱敏行。",
     "Blocked API attempts": "已阻止 API 尝试",
     "Storage writes": "存储写入",
     "Runtime": "运行方式",
@@ -144,17 +144,17 @@
     "2. Download free proof pack": "2. 下载免费验证包",
     "3. Preview setup only if mapping is unclear": "3. 字段不清时预览配置服务",
     "CSV-first and local-first.": "CSV 优先，本地运行。",
-    "Export spreadsheet tabs to CSV, then paste, click-select, or drag the CSV here. The demo is a static browser workflow; start with fake or redacted data before private AP files.": "先把电子表格工作表导出为 CSV，再粘贴、点击选择或拖入这里。本演示是静态浏览器流程；在处理私密 AP 文件前，请先使用模拟数据或脱敏数据。",
-    "Fastest proof path: sample report -> fake sample -> queue": "最快验证路径：样本报告 -> 模拟样本 -> 异常队列",
-    "Load fake sample or drag CSV": "加载模拟样本或拖入 CSV",
+    "Export spreadsheet tabs to CSV, then paste, click-select, or drag the CSV here. The demo is a static browser workflow; start with demo or redacted data before private AP files.": "先把电子表格工作表导出为 CSV，再粘贴、点击选择或拖入这里。本演示是静态浏览器流程；在处理私密 AP 文件前，请先使用模拟数据或脱敏数据。",
+    "Fastest proof path: sample report -> demo sample -> queue": "最快验证路径：样本报告 -> 模拟样本 -> 异常队列",
+    "Load demo sample or drag CSV": "加载模拟样本或拖入 CSV",
     "Generate HOLD / REVIEW / CLEAR": "生成 HOLD / REVIEW / CLEAR 队列",
     "Download CSV or HTML report": "下载 CSV 或 HTML 报告",
     "Fastest proof path": "最快验证路径",
     "View public sample report": "查看公开样本报告",
-    "Load fake samples and run": "加载模拟样本并运行",
+    "Load demo samples and run": "加载模拟样本并运行",
     "Download sample HTML report": "下载样本 HTML 报告",
     "Open bundled sample report": "打开内置样本报告",
-    "Inspect the public fake-data report first, then load bundled fake CSVs and run the scanner. No account, ERP login, bank connection, cloud upload, or Python step is needed.": "先查看公开模拟数据报告，再加载内置模拟 CSV 并运行复核工具。无需账号、ERP 登录、银行连接、云上传或 Python 步骤。",
+    "Inspect the public demo-data report first, then load bundled demo CSVs and run the scanner. No account, ERP login, bank connection, cloud upload, or Python step is needed.": "先查看公开模拟数据报告，再加载内置模拟 CSV 并运行复核工具。无需账号、ERP 登录、银行连接、云上传或 Python 步骤。",
     "Header-only first step": "仅表头的第一步",
     "Paste export headers before sharing any AP rows.": "在提供任何 AP 明细前，先粘贴导出表头做字段适配检查。",
     "Check which duplicate-payment rules can run from column names alone. This is designed for QuickBooks, Xero, BILL, ERP, bank, or spreadsheet exports when you are not ready to paste private payment data.": "仅通过字段名判断哪些重复付款复核规则可以运行。适用于 QuickBooks、Xero、BILL、ERP、银行流水或电子表格导出，尤其适合还不想粘贴私密付款数据的阶段。",
@@ -178,7 +178,7 @@
     "Or paste CSV": "或粘贴 CSV",
     "Run risk scan": "运行风险扫描",
     "Clear": "清空",
-    "Waiting for fake sample or current payment-run CSV.": "等待模拟样本或当前付款批次 CSV。",
+    "Waiting for demo sample or current payment-run CSV.": "等待模拟样本或当前付款批次 CSV。",
     "Waiting for current payment run CSV.": "等待当前付款批次 CSV。",
     "Overall run risk": "整体运行风险",
     "Run the scanner to see queue counts and top reasons.": "运行本地复核工具，查看异常队列数量和主要原因。",
@@ -186,7 +186,7 @@
     "Needs AP confirmation.": "需要 AP 人工复核。",
     "No duplicate-payment risk found.": "未发现重复付款风险。",
     "Recommended buyer action": "建议购买动作",
-    "Run the fake sample first.": "请先运行模拟样本。",
+    "Run the demo sample first.": "请先运行模拟样本。",
     "The scanner will recommend free proof pack, USD49 self-serve bundle, USD149 setup, or do not buy yet.": "复核工具会建议免费验证包、49 美元自助包、149 美元首轮字段映射与运行配置服务，或暂不购买。",
     "No AP export has been scanned yet.": "尚未扫描 AP 导出。",
     "All": "全部",
@@ -200,7 +200,7 @@
     "Need mapping help?": "需要映射帮助？",
     "Source profile": "来源画像",
     "Run scanner": "运行复核工具",
-    "Load fake samples or a local CSV to see source confidence.": "加载模拟样本或本地 CSV，查看数据来源可信度。",
+    "Load demo samples or a local CSV to see source confidence.": "加载模拟样本或本地 CSV，查看数据来源可信度。",
     "Field confidence": "字段适配可信度",
     "0 ready": "0 个就绪",
     "Mapped fields and weak headers will appear here.": "已映射字段和弱表头会显示在这里。",
@@ -223,7 +223,7 @@
     "Recommended action": "建议操作",
     "vendor + amount detected, invoice/date/payment id unclear": "已识别供应商和金额，但发票、日期、付款编号仍不清晰",
     "header meaning should be confirmed before relying on the queue": "依赖异常队列前，应先确认字段含义",
-    "send headers, fake rows, or redacted rows for first-run setup": "发送表头、模拟行或脱敏行用于首轮配置",
+    "send headers, demo rows, or redacted rows for first-run setup": "发送表头、模拟行或脱敏行用于首轮配置",
     "Open USD149 setup example path": "查看 149 美元配置示例",
     "Queue": "队列",
     "Score": "分数",
@@ -235,7 +235,7 @@
     "Reason": "原因",
     "Buyer path": "选择路径",
     "Turn the sample scan into a repeatable AP review.": "把样本复核转化为可重复执行的 AP 付款前复核流程。",
-    "Open the public fake-data report first, then use the free ZIP to run this scanner locally and check whether your export headers are ready. Buy only after the queue, evidence fields, and report shape match your workflow.": "先打开公开模拟数据报告，再使用免费 ZIP 在本地运行复核工具，确认你的导出表头是否就绪。只有当异常队列、证据字段和报告形态与你的工作流匹配后，再考虑购买。",
+    "Open the public demo-data report first, then use the free ZIP to run this scanner locally and check whether your export headers are ready. Buy only after the queue, evidence fields, and report shape match your workflow.": "先打开公开模拟数据报告，再使用免费 ZIP 在本地运行复核工具，确认你的导出表头是否就绪。只有当异常队列、证据字段和报告形态与你的工作流匹配后，再考虑购买。",
     "Download free proof pack": "下载免费验证包",
     "Preview USD149 setup": "预览 149 美元配置服务",
     "See USD49 self-serve bundle": "查看 49 美元自助包",
@@ -436,14 +436,14 @@
       .replace(/^Blocked or partial checks: (.+)\.$/, (_all, rules) => `阻塞或部分就绪检查：${translateCommaList(rules, translateRuleName)}。`)
       .replace("Too few checks are ready to make a paid review useful.", "可运行检查太少，付费复核暂时价值有限。")
       .replace("Field confidence should be confirmed before relying on the queue.", "依赖异常队列前，应先确认字段适配可信度。")
-      .replace("Run the free proof pack with fake or redacted rows.", "先用模拟数据行或脱敏行运行免费验证包。")
+      .replace("Run the free proof pack with demo or redacted rows.", "先用模拟数据行或脱敏行运行免费验证包。")
       .replace("Export vendor/payee, invoice, amount, date, payment id, and status if available.", "尽量导出供应商/收款方、发票、金额、日期、付款编号和状态。")
       .replace("Use setup only after headers or sample rows show enough AP context.", "只有在表头或样本行呈现足够 AP 上下文后，再使用字段映射与首轮运行配置服务。")
       .replace("Download the bundle and run it against a redacted first export.", "下载自助包，并用第一份脱敏导出文件运行。")
       .replace("Use HOLD rows as the payment stop list and REVIEW rows as the AP follow-up list.", "将 HOLD 行作为付款暂停清单，将 REVIEW 行作为 AP 跟进复核清单。")
       .replace("Keep the CSV/HTML report as local evidence for the run.", "将 CSV/HTML 报告作为本次付款前复核的本地证据留存。")
       .replace("Send headers or redacted rows for first-run setup.", "发送表头或脱敏行用于字段映射与首轮复核配置。")
-      .replace("Send only headers, fake rows, or redacted rows for mapping review.", "只发送表头、模拟行或脱敏行用于字段映射复核。")
+      .replace("Send only headers, demo rows, or redacted rows for mapping review.", "只发送表头、模拟行或脱敏行用于字段映射复核。")
       .replace("Ask for a first-run readiness note before using the queue in a payment process.", "在把异常队列用于付款流程前，先获取首轮就绪说明。")
       .replace("Move to self-serve only after core checks and history comparison are ready.", "只有在核心检查和历史已付款比对都就绪后，再转为自助使用。")
       .replace("Review HOLD rows first, then REVIEW rows before any payment release.", "任何付款放行前，先复核 HOLD 行，再处理 REVIEW 行。")
@@ -960,7 +960,7 @@
           namespace.reports.buildHtmlReport(sampleScanResult, currentLanguage),
           "text/html"
         );
-        setMessage(currentLanguage === "zh" ? "已在本地下载模拟样本 HTML 证据报告。" : "Downloaded fake-sample HTML proof report locally.", false);
+        setMessage(currentLanguage === "zh" ? "已在本地下载模拟样本 HTML 证据报告。" : "Downloaded demo-sample HTML proof report locally.", false);
       });
     }
     document.getElementById("load-header-sample").addEventListener("click", () => {

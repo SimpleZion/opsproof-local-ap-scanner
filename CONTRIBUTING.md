@@ -6,7 +6,7 @@ Please do not submit private finance data, real vendor records, bank data, tax d
 
 Good contribution types:
 
-- New fake-data fixtures.
+- New demo-data fixtures.
 - Better English or Chinese AP field aliases.
 - UI copy that lowers non-technical buyer friction.
 - Accessibility fixes.

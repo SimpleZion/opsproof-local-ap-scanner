@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const namespace = window.DPRS || {};
   const valueFromRecord = namespace.fieldMapping.valueFromRecord;
   const vendorNormalization = namespace.vendorNormalization;
@@ -659,7 +659,7 @@
       secondaryHref: "https://payhip.com/b/6UYfe",
       reasons: reasons.concat(blockedRules.length ? [`Blocked or partial checks: ${blockedRules.map((rule) => rule.rule).join(", ")}.`] : ["Field confidence should be confirmed before relying on the queue."]),
       nextSteps: [
-        "Send only headers, fake rows, or redacted rows for mapping review.",
+        "Send only headers, demo rows, or redacted rows for mapping review.",
         "Ask for a first-run readiness note before using the queue in a payment process.",
         "Move to self-serve only after core checks and history comparison are ready.",
       ],
@@ -779,7 +779,7 @@
       mlSummary: {
         scorecardVersion: SCORECARD_VERSION,
         method: "Explainable local unsupervised signals: robust amount baselines, vendor-history presence, and field completeness.",
-        queuePolicy: "ML-assisted signals do not change HOLD/REVIEW/CLEAR decisions; queues are assigned only from deterministic duplicate-payment rules.",
+        queuePolicy: "Local review signals do not change HOLD/REVIEW/CLEAR decisions; queues are assigned only from deterministic duplicate-payment rules.",
         signalCount: mlSignals.filter((signal) => signal.signalScore >= 25).length,
         highSignalCount: mlSignals.filter((signal) => signal.signalScore >= 50).length,
       },

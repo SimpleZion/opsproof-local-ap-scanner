@@ -7,7 +7,7 @@ Do not post private finance, supplier, bank, tax, payroll, customer, or payment-
 For public issues, use one of these safer formats:
 
 - Header-only CSV examples.
-- Fake rows.
+- Demo rows.
 - Redacted rows.
 - Synthetic supplier names.
 - Screenshots with private values removed.

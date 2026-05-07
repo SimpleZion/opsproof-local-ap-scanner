@@ -1,4 +1,4 @@
-const fs = require("fs");
+﻿const fs = require("fs");
 const path = require("path");
 const { buildSampleScan, writeSampleReport } = require("./sample_report_builder");
 
@@ -129,23 +129,23 @@ if (scan_result.queueCounts.REVIEW < 1) {
 }
 
 if ((scan_result.mlSummary || {}).scorecardVersion !== "local_unsupervised_signal_v1") {
-  throw new Error("Expected ML scorecard version local_unsupervised_signal_v1.");
+  throw new Error("Expected review signal version local_unsupervised_signal_v1.");
 }
 
 if (!scan_result.mlSignals.every((signal) => signal.scorecardVersion === "local_unsupervised_signal_v1")) {
-  throw new Error("Expected every ML signal to carry the scorecard version.");
+  throw new Error("Expected every local review signal to carry the scorecard version.");
 }
 
 if (!scan_result.items.every((item) => !item.mlSignal || Array.isArray(item.mlSignal.evidence))) {
-  throw new Error("Expected ML signal evidence to stay structured inside scan results.");
+  throw new Error("Expected local review signal evidence to stay structured inside scan results.");
 }
 
 if (!scan_result.items.every((item) => !item.mlSignal || (item.queue === "PASS" ? "CLEAR" : item.queue) === item.mlSignal.queue)) {
-  throw new Error("ML signals must mirror, not change, deterministic HOLD/REVIEW/CLEAR queues.");
+  throw new Error("Local review signals must mirror, not change, deterministic HOLD/REVIEW/CLEAR queues.");
 }
 
 if ((scan_result.buyerDecisionGuidance || {}).status !== "self_serve_ready") {
-  throw new Error("Expected complete fake samples to be marked self_serve_ready for buyer guidance.");
+  throw new Error("Expected complete demo samples to be marked self_serve_ready for buyer guidance.");
 }
 
 if (!(scan_result.buyerDecisionGuidance || {}).reasons || scan_result.buyerDecisionGuidance.reasons.length < 3) {
@@ -156,16 +156,16 @@ if (!csv_report.includes("Historical paid comparison")) {
   throw new Error("Expected CSV report to include historical paid comparison reason.");
 }
 
-if (!csv_report.includes("ML scorecard version") || !csv_report.includes("Local unsupervised signal v1")) {
-  throw new Error("Expected CSV report to include ML scorecard version.");
+if (!csv_report.includes("Review signal version") || !csv_report.includes("Local unsupervised signal v1")) {
+  throw new Error("Expected CSV report to include Review signal version.");
 }
 
 if (!html_report.includes("Duplicate Payment Risk Report")) {
   throw new Error("Expected HTML report title.");
 }
 
-if (!html_report.includes("ML scorecard") || !html_report.includes("Local unsupervised signal v1")) {
-  throw new Error("Expected HTML report to include ML scorecard version.");
+if (!html_report.includes("Review signal scorecard") || !html_report.includes("Local unsupervised signal v1")) {
+  throw new Error("Expected HTML report to include Review signal version.");
 }
 
 if (!html_report.includes("Self-serve ready") || !html_report.includes("Open USD49 bundle")) {
@@ -173,7 +173,7 @@ if (!html_report.includes("Self-serve ready") || !html_report.includes("Open USD
 }
 
 if (!sample_proof_report.includes("Duplicate Payment Risk Report") || !sample_proof_report.includes("HOLD")) {
-  throw new Error("Expected fake-sample proof report to include buyer-visible risk output.");
+  throw new Error("Expected demo-sample proof report to include buyer-visible risk output.");
 }
 
 const english_report_banned_snippets = [
@@ -191,7 +191,7 @@ english_report_banned_snippets.forEach((snippet) => {
 });
 
 if (!chinese_sample_proof_report.includes("付款前重复付款风险复核报告") || !chinese_sample_proof_report.includes("当前付款批次中存在完全重复发票")) {
-  throw new Error("Expected Chinese fake-sample proof report to include localized risk output.");
+  throw new Error("Expected Chinese demo-sample proof report to include localized risk output.");
 }
 
 if (!chinese_csv_report.includes("队列") || !chinese_csv_report.includes("风险分数") || !chinese_csv_report.includes("供应商/收款方") || !chinese_csv_report.includes("当前付款批次中存在完全重复发票")) {
@@ -211,7 +211,7 @@ const chinese_report_banned_snippets = [
   "Send only headers",
   "Ask for a first-run",
   "Move to self-serve",
-  "fake rows",
+  "demo rows",
   "redacted rows",
   "payment process",
   "paid_history",

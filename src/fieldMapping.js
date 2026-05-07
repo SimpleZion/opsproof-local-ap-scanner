@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const namespace = window.DPRS || {};
 
   const fieldAliases = {
@@ -341,7 +341,7 @@
         requiredFields: rule.requiredFields,
         missingFields,
         weakFields,
-        nextExport: missingFields.length > 0 ? rule.nextExport : "Ready for a fake-row or redacted-row first run.",
+        nextExport: missingFields.length > 0 ? rule.nextExport : "Ready for a demo-row or redacted-row first run.",
         nextExportZh: missingFields.length > 0 ? rule.nextExportZh : "可进入模拟数据行或脱敏行的首轮运行。",
       };
     });

@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const namespace = window.DPRS || {};
 
   function translateMlMessage(message, language) {
@@ -301,8 +301,8 @@
     title: { en: "Duplicate Payment Risk Report", zh: "付款前重复付款风险复核报告" },
     generated: { en: "Generated locally in browser at {time}. No network upload is required by this report generator.", zh: "报告于 {time} 在浏览器本地生成。此报告生成器不需要网络上传，也不会上传敏感财务数据。" },
     bilingualNote: { en: "Language note: this report is in English. Use the scanner language switch to download the Chinese version.", zh: "语言说明：当前报告为中文版本。如需英文版本，请在复核工具中切换到 EN 后重新下载。" },
-    mlEvidence: { en: "ML-assisted evidence:", zh: "本地机器辅助证据：" },
-    mlScorecard: { en: "ML scorecard:", zh: "机器辅助评分卡：" },
+    mlEvidence: { en: "Local review evidence:", zh: "本地机器辅助证据：" },
+    mlScorecard: { en: "Review signal scorecard:", zh: "机器辅助评分卡：" },
     defaultMl: { en: "Local unsupervised signals are included when available.", zh: "如可用，将包含本地无监督信号。" },
     overallRisk: { en: "Overall risk", zh: "本批次总体风险" },
     currentRows: { en: "Current rows", zh: "当前付款明细" },
@@ -407,9 +407,9 @@
       payment_id: "Payment ID",
       status: "Status",
       matched_rows: "Matched rows",
-      ml_scorecard_version: "ML scorecard version",
-      ml_signal_score: "ML signal score",
-      ml_signal_evidence: "ML signal evidence",
+      ml_scorecard_version: "Review signal version",
+      ml_signal_score: "Review signal score",
+      ml_signal_evidence: "Review signal evidence",
       reason: "Reason",
     },
     zh: {
@@ -475,7 +475,7 @@
       .replace(/^Blocked or partial checks: (.+)\.$/, (_all, rules) => `阻塞或部分就绪检查：${localizedCommaList(rules, language, ruleLabel)}。`)
       .replace("Too few checks are ready to make a paid review useful.", "可运行检查太少，付费复核暂时价值有限。")
       .replace("Field confidence should be confirmed before relying on the queue.", "依赖异常队列前，应先确认字段适配可信度。")
-      .replace("Run the free proof pack with fake or redacted rows.", "先用模拟数据行或脱敏行运行免费验证包。")
+      .replace("Run the free proof pack with demo or redacted rows.", "先用模拟数据行或脱敏行运行免费验证包。")
       .replace("Export vendor/payee, invoice number, amount, and payment or bill date columns.", "导出供应商/收款方、发票号、金额，以及付款日期或账单日期字段。")
       .replace("Run the header checker again before sending any private AP rows.", "发送任何私密 AP 明细前，先重新运行表头检查。")
       .replace("Buy setup only after the passport shows enough fields to review.", "只有在导出适配报告显示字段足够复核后，再考虑配置服务。")
@@ -488,7 +488,7 @@
       .replace("Save the HTML report and CSV queue as controller evidence.", "保存 HTML 报告和 CSV 队列，作为财务负责人复核证据。")
       .replace("Use setup only if your live export differs from this sample-ready structure.", "只有当你的真实导出与这个样本结构不同，再考虑配置服务。")
       .replace("Send headers or redacted rows for first-run setup.", "发送表头或脱敏行，用于首轮字段映射与运行配置服务。")
-      .replace("Send only headers, fake rows, or redacted rows for mapping review.", "只发送表头、模拟行或脱敏行用于字段映射复核。")
+      .replace("Send only headers, demo rows, or redacted rows for mapping review.", "只发送表头、模拟行或脱敏行用于字段映射复核。")
       .replace("Ask for a first-run readiness note before using the queue in a payment process.", "在把异常队列用于付款流程前，先获取首轮就绪说明。")
       .replace("Move to self-serve only after core checks and history comparison are ready.", "只有在核心检查和历史已付款比对都就绪后，再转为自助使用。")
       .replace("Confirm ambiguous fields before relying on self-service queue output.", "依赖自助异常队列输出前，先确认模糊字段。")
