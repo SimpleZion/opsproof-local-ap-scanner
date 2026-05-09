@@ -294,7 +294,7 @@
     "This export likely needs the USD149 first-run setup before self-service.": "当前导出在自助使用前，建议先做 149 美元字段映射与首轮复核配置服务。",
     "Core evidence is missing. Use the free proof path first and export stronger AP columns before buying the bundle or setup.": "核心证据字段缺失。购买自助包或字段映射与首轮运行配置服务前，先使用免费验证包，并导出更完整的 AP 字段。",
     "The current export has enough field confidence and rule readiness to use the local AP control workflow without a mapping call.": "当前导出已具备足够的字段适配可信度和规则可运行性，可直接使用本地 AP 内控复核流程，无需额外字段适配沟通。",
-    "Some checks are ready, but blocked rules or uncertain fields mean a short mapping review would reduce false confidence.": "部分检查已可运行，但被阻塞规则或不确定字段仍可能造成误判；短字段适配复核可以降低错误信心。",
+    "Some checks are ready, but blocked rules or uncertain fields mean a short mapping review would reduce false confidence.": "部分检查已可运行，但被阻塞规则或不确定字段仍可能造成误判；一次简短的字段适配复核可以降低误判风险。",
     "Open USD49 bundle": "查看 49 美元自助包",
     "Open USD149 setup": "查看 149 美元配置服务",
     "View sample report": "查看样本报告",
@@ -586,7 +586,7 @@
       renderMapping(lastScanResult);
       renderEvidencePassport(lastScanResult);
     } else {
-      renderSummary({ overallRisk: 0, queueCounts: { HOLD: 0, REVIEW: 0, PASS: 0 }, items: [] });
+      renderSummary({ overallRisk: 0, queueCounts: { HOLD: 0, REVIEW: 0, CLEAR: 0 }, items: [] });
       renderBuyerDecisionGuidance(null);
     }
     renderRows();
@@ -807,7 +807,7 @@
 
     elements.resultBody.innerHTML = items.map((item) => {
       const reasons = item.reasons.map((reason) => `<li>${escapeHtml(namespace.reports.reasonText(reason, currentLanguage))}</li>`).join("");
-      const queueLabel = item.queue === "PASS" ? "CLEAR" : item.queue;
+      const queueLabel = item.queue;
       return `<tr>
         <td data-label="${escapeHtml(text("queue"))}"><span class="queue-badge ${item.queue.toLowerCase()}">${queueLabel}</span></td>
         <td data-label="${escapeHtml(text("score"))}"><strong>${item.score}</strong></td>
@@ -822,7 +822,7 @@
 
     elements.mobileResultList.innerHTML = items.map((item) => {
       const reasons = item.reasons.map((reason) => `<li>${escapeHtml(namespace.reports.reasonText(reason, currentLanguage))}</li>`).join("");
-      const queueLabel = item.queue === "PASS" ? "CLEAR" : item.queue;
+      const queueLabel = item.queue;
       return `<article class="mobile-result-card">
         <div class="mobile-result-topline">
           <span class="queue-badge ${item.queue.toLowerCase()}">${queueLabel}</span>
@@ -844,7 +844,7 @@
     elements.overallRisk.textContent = String(scanResult.overallRisk);
     elements.holdCount.textContent = String(scanResult.queueCounts.HOLD);
     elements.reviewCount.textContent = String(scanResult.queueCounts.REVIEW);
-    elements.passCount.textContent = String(scanResult.queueCounts.PASS);
+    elements.passCount.textContent = String(scanResult.queueCounts.CLEAR);
     elements.overallCopy.textContent = scanResult.queueCounts.HOLD > 0
       ? text("highRisk")
       : text("noHold");
@@ -980,7 +980,7 @@
       elements.historyFile.value = "";
       elements.aliasFile.value = "";
       lastScanResult = null;
-      renderSummary({ overallRisk: 0, queueCounts: { HOLD: 0, REVIEW: 0, PASS: 0 }, items: [] });
+      renderSummary({ overallRisk: 0, queueCounts: { HOLD: 0, REVIEW: 0, CLEAR: 0 }, items: [] });
       renderBuyerDecisionGuidance(null);
       elements.resultDecisionCard.dataset.status = "not_run";
       elements.mappingCopy.textContent = text("noInputScanned");
@@ -993,7 +993,7 @@
 
     document.querySelectorAll(".tab").forEach((button) => {
       button.addEventListener("click", () => {
-        activeQueue = button.dataset.queue === "CLEAR" ? "PASS" : button.dataset.queue;
+        activeQueue = button.dataset.queue;
         document.querySelectorAll(".tab").forEach((tab) => tab.classList.remove("active"));
         button.classList.add("active");
         renderRows();

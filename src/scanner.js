@@ -380,7 +380,7 @@
       return {
         scorecardVersion: SCORECARD_VERSION,
         rowNumber: item.rowNumber,
-        queue: item.queue === "PASS" ? "CLEAR" : item.queue,
+        queue: item.queue,
         vendor: item.vendor,
         invoiceNumber: item.invoiceNumber,
         amount: amountDisplay(item.amountCents),
@@ -739,7 +739,7 @@
       } else if (item.score >= 35) {
         item.queue = "REVIEW";
       } else {
-        item.queue = "PASS";
+        item.queue = "CLEAR";
         if (item.reasons.length === 0) {
           item.reasons.push({ rule: "clear", message: "No duplicate payment risk found by this scan.", score: 0 });
         }
@@ -756,7 +756,7 @@
     const queueCounts = {
       HOLD: sortedItems.filter((item) => item.queue === "HOLD").length,
       REVIEW: sortedItems.filter((item) => item.queue === "REVIEW").length,
-      PASS: sortedItems.filter((item) => item.queue === "PASS").length,
+      CLEAR: sortedItems.filter((item) => item.queue === "CLEAR").length,
     };
     const sourceProfiles = [
       sourceProfile(currentParse.headers || [], currentParse.rows || [], "current"),

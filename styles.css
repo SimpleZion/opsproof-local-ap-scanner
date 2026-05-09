@@ -707,7 +707,7 @@ html[lang="zh-CN"] .tab {
   border-top: 5px solid var(--review);
 }
 
-.metric.pass {
+.metric.clear {
   border-top: 5px solid var(--pass);
 }
 
@@ -1175,7 +1175,7 @@ td:nth-child(8) {
   background: var(--review);
 }
 
-.queue-badge.pass {
+.queue-badge.clear {
   background: var(--pass);
 }
 

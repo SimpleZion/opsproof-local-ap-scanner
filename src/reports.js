@@ -156,7 +156,7 @@
   }
 
   function queueDisplayLabel(value, language) {
-    const queue = value === "PASS" ? "CLEAR" : value;
+    const queue = value;
     if (language !== "zh") {
       return queue;
     }
@@ -270,7 +270,7 @@
 
   function reportRows(items, language) {
     return items.map((item) => ({
-      queue: item.queue === "PASS" ? "CLEAR" : item.queue,
+      queue: item.queue,
       risk_score: item.score,
       row_number: item.rowNumber,
       vendor_payee: item.vendor,
@@ -367,7 +367,7 @@
     "This export likely needs the USD149 first-run setup before self-service.": "当前导出在自助使用前，建议先做 149 美元首轮字段映射与运行配置服务。",
     "Core evidence is missing. Use the free proof path first and export stronger AP columns before buying the bundle or setup.": "核心证据字段缺失。购买自助包或首轮字段映射与运行配置服务前，先使用免费验证包，并导出更完整的 AP 字段。",
     "The current export has enough field confidence and rule readiness to use the local AP control workflow without a mapping call.": "当前导出已具备足够的字段适配可信度和规则可运行性，可直接使用本地 AP 内控复核流程，无需额外字段适配沟通。",
-    "Some checks are ready, but blocked rules or uncertain fields mean a short mapping review would reduce false confidence.": "部分检查已可运行，但被阻塞规则或不确定字段仍可能造成误判；短字段适配复核可以降低错误信心。",
+    "Some checks are ready, but blocked rules or uncertain fields mean a short mapping review would reduce false confidence.": "部分检查已可运行，但被阻塞规则或不确定字段仍可能造成误判；一次简短的字段适配复核可以降低误判风险。",
     "Open USD49 bundle": "查看 49 美元自助包",
     "Open USD149 setup": "查看 149 美元配置服务",
     "View sample report": "查看样本报告",
@@ -525,7 +525,7 @@
   function buildActionSummary(scanResult, buyerGuidance, language) {
     const holdCount = scanResult.queueCounts.HOLD || 0;
     const reviewCount = scanResult.queueCounts.REVIEW || 0;
-    const clearCount = scanResult.queueCounts.PASS || 0;
+    const clearCount = scanResult.queueCounts.CLEAR || 0;
     const readyRules = (scanResult.ruleReadiness || []).filter((rule) => rule.status === "ready").length;
     const totalRules = (scanResult.ruleReadiness || []).length;
     const sourceProfile = ((scanResult.sourceProfiles || []).find((profile) => profile.sourceName === "current") || {}).likelySource || "generic_ap_export";
@@ -725,7 +725,7 @@
     <div><strong>${escapeHtml(reportLabel(reportLanguage, "overallRisk"))}</strong><br>${escapeHtml(scanResult.overallRisk)}</div>
     <div><strong>${escapeHtml(queueDisplayLabel("HOLD", reportLanguage))}</strong><br>${escapeHtml(scanResult.queueCounts.HOLD)}</div>
     <div><strong>${escapeHtml(queueDisplayLabel("REVIEW", reportLanguage))}</strong><br>${escapeHtml(scanResult.queueCounts.REVIEW)}</div>
-    <div><strong>${escapeHtml(queueDisplayLabel("CLEAR", reportLanguage))}</strong><br>${escapeHtml(scanResult.queueCounts.PASS)}</div>
+    <div><strong>${escapeHtml(queueDisplayLabel("CLEAR", reportLanguage))}</strong><br>${escapeHtml(scanResult.queueCounts.CLEAR)}</div>
     <div><strong>${escapeHtml(reportLabel(reportLanguage, "currentRows"))}</strong><br>${escapeHtml(scanResult.currentRowCount)}</div>
     <div><strong>${escapeHtml(reportLabel(reportLanguage, "historyRows"))}</strong><br>${escapeHtml(scanResult.historyRowCount)}</div>
     <div><strong>${escapeHtml(reportLabel(reportLanguage, "mlSignals"))}</strong><br>${escapeHtml((scanResult.mlSummary || {}).signalCount || 0)}</div>

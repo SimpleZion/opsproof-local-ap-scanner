@@ -140,7 +140,7 @@ if (!scan_result.items.every((item) => !item.mlSignal || Array.isArray(item.mlSi
   throw new Error("Expected local review signal evidence to stay structured inside scan results.");
 }
 
-if (!scan_result.items.every((item) => !item.mlSignal || (item.queue === "PASS" ? "CLEAR" : item.queue) === item.mlSignal.queue)) {
+if (!scan_result.items.every((item) => !item.mlSignal || item.queue === item.mlSignal.queue)) {
   throw new Error("Local review signals must mirror, not change, deterministic HOLD/REVIEW/CLEAR queues.");
 }
 
@@ -235,5 +235,5 @@ if (csv_report.includes("PASS") || html_report.includes(">PASS<")) {
 console.log("Smoke test passed");
 console.log(`Rows: ${current_parse.rows.length}`);
 console.log(`Detected fields: ${detected_fields}`);
-console.log(`Queues: HOLD=${scan_result.queueCounts.HOLD}, REVIEW=${scan_result.queueCounts.REVIEW}, CLEAR=${scan_result.queueCounts.PASS}`);
+console.log(`Queues: HOLD=${scan_result.queueCounts.HOLD}, REVIEW=${scan_result.queueCounts.REVIEW}, CLEAR=${scan_result.queueCounts.CLEAR}`);
 console.log(`Overall risk: ${scan_result.overallRisk}`);
