@@ -20,7 +20,7 @@
     }
     match = text.match(/^Record completeness is (\d+)%; missing fields reduce machine-assisted confidence\.$/);
     if (match) {
-      return `记录完整度为 ${match[1]}%；缺失字段会降低本地机器辅助判断的可信度。`;
+      return `记录完整度为 ${match[1]}%；缺失字段会降低本地复核信号的可信度。`;
     }
     if (text === "Vendor/payee is not present in the paid-history baseline supplied to this local scan.") {
       return "该供应商/收款方未出现在本次本地扫描提供的已付款历史基线中。";
@@ -301,13 +301,13 @@
     title: { en: "Duplicate Payment Risk Report", zh: "付款前重复付款风险复核报告" },
     generated: { en: "Generated locally in browser at {time}. No network upload is required by this report generator.", zh: "报告于 {time} 在浏览器本地生成。此报告生成器不需要网络上传，也不会上传敏感财务数据。" },
     bilingualNote: { en: "Language note: this report is in English. Use the scanner language switch to download the Chinese version.", zh: "语言说明：当前报告为中文版本。如需英文版本，请在复核工具中切换到 EN 后重新下载。" },
-    mlEvidence: { en: "Local review evidence:", zh: "本地机器辅助证据：" },
-    mlScorecard: { en: "Review signal scorecard:", zh: "机器辅助评分卡：" },
+    mlEvidence: { en: "Local review evidence:", zh: "本地复核证据：" },
+    mlScorecard: { en: "Review signal scorecard:", zh: "复核信号评分卡：" },
     defaultMl: { en: "Local unsupervised signals are included when available.", zh: "如可用，将包含本地无监督信号。" },
     overallRisk: { en: "Overall risk", zh: "本批次总体风险" },
     currentRows: { en: "Current rows", zh: "当前付款明细" },
     historyRows: { en: "Paid history rows", zh: "已付款历史行数" },
-    mlSignals: { en: "ML review signals", zh: "本地机器复核信号" },
+    mlSignals: { en: "Local review signals", zh: "本地复核信号" },
     controllerSummary: { en: "Controller action summary", zh: "财务复核摘要" },
     immediateAction: { en: "Immediate action", zh: "建议动作" },
     evidenceBasis: { en: "Evidence basis", zh: "证据依据" },
@@ -337,7 +337,7 @@
     headers: { en: "Headers", zh: "表头数" },
     rows: { en: "Rows", zh: "行数" },
     headerList: { en: "Header list", zh: "表头列表" },
-    anomalySignals: { en: "ML-Assisted Anomaly Signals", zh: "本地机器辅助异常信号" },
+    anomalySignals: { en: "Local Review Signals", zh: "本地复核信号" },
     anomalyNote: { en: "These are explainable local unsupervised signals, not a fraud guarantee or audit opinion. They help prioritize review when the same CSV export has amount outliers, limited vendor history, or incomplete evidence fields.", zh: "这些是可解释的本地无监督信号，并非反舞弊保证或审计意见。当同一 CSV 导出存在金额离群、供应商历史有限或证据字段不完整时，它们用于辅助排序复核优先级。" },
     scorecard: { en: "Scorecard", zh: "评分卡" },
     signalScore: { en: "Signal score", zh: "信号分" },
@@ -425,9 +425,9 @@
       payment_id: "付款编号",
       status: "状态",
       matched_rows: "匹配行",
-      ml_scorecard_version: "机器辅助评分卡版本",
-      ml_signal_score: "机器辅助信号分",
-      ml_signal_evidence: "机器辅助信号证据",
+      ml_scorecard_version: "复核信号评分卡版本",
+      ml_signal_score: "复核信号分",
+      ml_signal_evidence: "复核信号证据",
       reason: "原因",
     },
   };
@@ -607,7 +607,7 @@
       ? "可解释的本地无监督信号：稳健金额基线、供应商历史存在性和字段完整度。"
       : ((scanResult.mlSummary || {}).method || reportLabel(reportLanguage, "defaultMl"));
     const mlQueuePolicy = reportLanguage === "zh"
-      ? "本地机器辅助信号不会改变 HOLD（暂停复核）/ REVIEW（人工复核）/ CLEAR（可继续）结论；队列只由确定性重复付款规则分配。"
+      ? "本地复核信号不会改变 HOLD（暂停复核）/ REVIEW（人工复核）/ CLEAR（可继续）结论；队列只由确定性重复付款规则分配。"
       : ((scanResult.mlSummary || {}).queuePolicy || "");
     const scorecardVersionText = scorecardVersionLabel((scanResult.mlSummary || {}).scorecardVersion || "", reportLanguage);
     const guidanceReasons = (buyerGuidance.reasons || []).map((reason) => `<li>${escapeHtml(reason)}</li>`).join("");

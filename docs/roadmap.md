@@ -5,7 +5,7 @@
 - Local duplicate-payment risk scanner.
 - English and Chinese field mapping.
 - Header-only readiness check.
-- Fake sample report.
+- Demo sample report.
 - CSV and HTML report downloads.
 - Local anomaly signals that do not override deterministic rules.
 

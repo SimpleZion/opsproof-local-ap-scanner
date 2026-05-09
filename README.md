@@ -4,7 +4,7 @@
 
 Local-first duplicate-payment risk scanner for accounts payable payment-run exports.
 
-中文说明见 [README.zh-CN.md](README.zh-CN.md).
+Chinese guide: [README.zh-CN.md](README.zh-CN.md).
 
 ![Scanner first view](docs/assets/scanner-first-view.png)
 

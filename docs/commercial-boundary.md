@@ -7,7 +7,7 @@ This repository is open source so buyers can inspect the local scanner, privacy 
 ## Open Source
 
 - Local static scanner.
-- Fake sample data.
+- Demo sample data.
 - Sample HTML reports.
 - CSV parsing and report generation.
 - Basic field mapping for English and Chinese AP exports.
