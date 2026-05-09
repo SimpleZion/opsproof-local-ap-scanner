@@ -128,6 +128,18 @@ if (scan_result.queueCounts.REVIEW < 1) {
   throw new Error("Expected at least one REVIEW row from sample data.");
 }
 
+if (scan_result.items.some((item) => item.queue === "PASS")) {
+  throw new Error("Internal scanner queue enum must use CLEAR, not PASS.");
+}
+
+if (!Object.prototype.hasOwnProperty.call(scan_result.queueCounts, "CLEAR")) {
+  throw new Error("queueCounts must expose CLEAR.");
+}
+
+if (Object.prototype.hasOwnProperty.call(scan_result.queueCounts, "PASS")) {
+  throw new Error("queueCounts must not expose PASS after CLEAR migration.");
+}
+
 if ((scan_result.mlSummary || {}).scorecardVersion !== "local_unsupervised_signal_v1") {
   throw new Error("Expected review signal version local_unsupervised_signal_v1.");
 }
