@@ -41,8 +41,8 @@ assert(!supplier_name.reviewRequired && supplier_name.score >= 90, "Expected 供
 assert(!invoice_amount.reviewRequired && invoice_amount.score >= 90, "Expected 发票金额 to be high confidence.");
 assert(!payment_date.reviewRequired && payment_date.score >= 90, "Expected 付款日期 to be high confidence.");
 
-const ambiguous_rows = ledger.buildFieldConfidenceLedger(["金额", "日期", "编号"]);
-["金额", "日期", "编号"].forEach((field_name) => {
+const ambiguous_rows = ledger.buildFieldConfidenceLedger(["名称", "金额", "日期", "编号", "单号"]);
+["名称", "金额", "日期", "编号", "单号"].forEach((field_name) => {
   const row = by_original_field(ambiguous_rows, field_name);
   assert(row.reviewRequired, `Expected ${field_name} to require review without samples, got ${JSON.stringify(row)}`);
   assert(row.selectedField === "", `Expected ${field_name} to stay unselected without samples, got ${JSON.stringify(row)}`);

@@ -15,6 +15,9 @@
   const ambiguousHeaders = {
     "金额": ["amount"],
     "日期": ["date"],
+    "名称": ["vendor"],
+    "单号": ["invoice_number", "payment_id"],
+    "号码": ["invoice_number", "payment_id"],
     "编号": ["invoice_number", "payment_id"],
   };
 

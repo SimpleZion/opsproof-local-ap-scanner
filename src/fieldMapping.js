@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const namespace = window.DPRS || {};
 
   const fieldAliases = {
@@ -267,6 +267,35 @@
     return { mapping, confidence };
   }
 
+  function reviewAwareDetectedMapping(headers, detected) {
+    if (!namespace.fieldConfidenceLedger || typeof namespace.fieldConfidenceLedger.buildFieldConfidenceLedger !== "function") {
+      return detected;
+    }
+
+    const ledgerRows = namespace.fieldConfidenceLedger.buildFieldConfidenceLedger(headers || [], []);
+    const mapping = {};
+    const confidence = {};
+    Object.keys(fieldAliases).forEach((fieldName) => {
+      const readyRow = ledgerRows.find((row) => row.selectedField === fieldName);
+      const candidateRow = ledgerRows
+        .map((row) => {
+          const candidate = (row.topCandidates || []).find((item) => item.field === fieldName);
+          return candidate ? { row, candidate } : null;
+        })
+        .filter(Boolean)
+        .sort((left, right) => right.candidate.score - left.candidate.score)[0];
+
+      mapping[fieldName] = readyRow ? readyRow.originalField : "";
+      confidence[fieldName] = readyRow
+        ? readyRow.score
+        : candidateRow
+          ? candidateRow.candidate.score
+          : detected.confidence[fieldName] || 0;
+    });
+
+    return { mapping, confidence, ledgerRows };
+  }
+
   const readinessRules = [
     {
       id: "exact_duplicate_invoice",
@@ -322,17 +351,21 @@
     const cleanHeaders = (headers || [])
       .map((header) => String(header || "").trim())
       .filter(Boolean);
-    const detected = detectFieldMapping(cleanHeaders);
+    const rawDetected = detectFieldMapping(cleanHeaders);
+    const detected = reviewAwareDetectedMapping(cleanHeaders, rawDetected);
     const detectedFields = Object.keys(detected.mapping).filter((fieldName) => detected.mapping[fieldName]);
     const ruleRows = readinessRules.map((rule) => {
       const missingFields = rule.requiredFields.filter((fieldName) => !detected.mapping[fieldName]);
+      const reviewFields = rule.requiredFields.filter((fieldName) => rawDetected.mapping[fieldName] && !detected.mapping[fieldName]);
       const weakFields = rule.requiredFields.filter((fieldName) => detected.mapping[fieldName] && detected.confidence[fieldName] < 75);
       let status = "ready";
       if (missingFields.length > 0) {
         status = "blocked";
-      } else if (weakFields.length > 0) {
+      } else if (reviewFields.length > 0 || weakFields.length > 0) {
         status = "partial";
       }
+      const reviewMessage = "Confirm ambiguous AP headers with one fake or redacted row before relying on this rule.";
+      const reviewMessageZh = "请用一行模拟或脱敏样例确认含义模糊的 AP 字段，再依赖这条规则。";
       return {
         id: rule.id,
         label: rule.label,
@@ -340,9 +373,10 @@
         status,
         requiredFields: rule.requiredFields,
         missingFields,
+        reviewFields,
         weakFields,
-        nextExport: missingFields.length > 0 ? rule.nextExport : "Ready for a demo-row or redacted-row first run.",
-        nextExportZh: missingFields.length > 0 ? rule.nextExportZh : "可进入模拟数据行或脱敏行的首轮运行。",
+        nextExport: missingFields.length > 0 ? rule.nextExport : reviewFields.length > 0 ? reviewMessage : "Ready for a demo-row or redacted-row first run.",
+        nextExportZh: missingFields.length > 0 ? rule.nextExportZh : reviewFields.length > 0 ? reviewMessageZh : "可进入模拟数据行或脱敏行的首轮运行。",
       };
     });
     const nextExportRequests = ruleRows

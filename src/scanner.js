@@ -397,7 +397,10 @@
     const cleanHeaders = headers || [];
     const normalizedHeaders = cleanHeaders.map((header) => namespace.fieldMapping.normalizeHeader(header));
     const mappingResult = namespace.fieldMapping.detectFieldMapping(cleanHeaders);
-    const readyFields = Object.keys(mappingResult.mapping).filter((fieldName) => Boolean(mappingResult.mapping[fieldName]));
+    const profileFieldRows = fieldLedger(sourceName, mappingResult, cleanHeaders, rows || []);
+    const readyFields = profileFieldRows
+      .filter((row) => row.status === "ready")
+      .map((row) => row.field);
     const profileDefinitions = [
       {
         id: "payment_run_export",
@@ -473,7 +476,7 @@
     const likelySource = bestProfile.score > 0 ? bestProfile.id : "generic_ap_export";
     const profileConfidence = Math.min(92, Math.max(25, 25 + bestProfile.score * 24 + readyFields.length * 4));
     const missingUsefulHeaders = ["vendor", "invoice_number", "amount", "date", "payment_id", "status"]
-      .filter((fieldName) => !mappingResult.mapping[fieldName])
+      .filter((fieldName) => !readyFields.includes(fieldName))
       .map((fieldName) => fieldName.replace("_", " "));
     const matchedProfileSignals = bestProfile.matchedSignals.length ? bestProfile.matchedSignals : ["generic AP column structure"];
     const profileWarning = profileConfidence < 70
@@ -540,6 +543,17 @@
         status: detectedHeader && confidence >= 80 ? "ready" : detectedHeader ? "review" : "missing",
       };
     });
+  }
+
+  function readyMappingFromFieldLedger(mappingResult, ledgerRows) {
+    const mapping = {};
+    const confidence = {};
+    Object.keys(namespace.fieldMapping.fieldAliases || {}).forEach((fieldName) => {
+      const fieldRow = (ledgerRows || []).find((row) => row.field === fieldName);
+      mapping[fieldName] = fieldRow && fieldRow.status === "ready" ? fieldRow.detectedHeader : "";
+      confidence[fieldName] = fieldRow ? fieldRow.confidence : mappingResult.confidence[fieldName] || 0;
+    });
+    return { mapping, confidence };
   }
 
   function ruleReadiness(currentMapping, historyMapping, historyRowCount, aliasCount) {
@@ -667,8 +681,12 @@
   }
 
   function runScan(currentParse, historyParse, aliasParse) {
-    const currentMapping = namespace.fieldMapping.detectFieldMapping(currentParse.headers || []);
-    const historyMapping = namespace.fieldMapping.detectFieldMapping(historyParse.headers || []);
+    const currentMappingRaw = namespace.fieldMapping.detectFieldMapping(currentParse.headers || []);
+    const historyMappingRaw = namespace.fieldMapping.detectFieldMapping(historyParse.headers || []);
+    const currentFieldLedgerRows = fieldLedger("current", currentMappingRaw, currentParse.headers || [], currentParse.rows || []);
+    const historyFieldLedgerRows = fieldLedger("paid_history", historyMappingRaw, historyParse.headers || [], historyParse.rows || []);
+    const currentMapping = readyMappingFromFieldLedger(currentMappingRaw, currentFieldLedgerRows);
+    const historyMapping = readyMappingFromFieldLedger(historyMappingRaw, historyFieldLedgerRows);
     const aliasMap = buildAliasMap(aliasParse.rows || []);
     const currentItems = mapRows(currentParse.rows || [], currentMapping.mapping, aliasMap, "current");
     const historyItems = mapRows(historyParse.rows || [], historyMapping.mapping, aliasMap, "history").filter((item) => statusLooksPaid(item.statusNormalized));
@@ -763,8 +781,7 @@
       sourceProfile(historyParse.headers || [], historyParse.rows || [], "paid_history"),
       sourceProfile(aliasParse.headers || [], aliasParse.rows || [], "vendor_aliases"),
     ];
-    const fieldLedgerRows = fieldLedger("current", currentMapping, currentParse.headers || [], currentParse.rows || [])
-      .concat(fieldLedger("paid_history", historyMapping, historyParse.headers || [], historyParse.rows || []));
+    const fieldLedgerRows = currentFieldLedgerRows.concat(historyFieldLedgerRows);
     const ruleReadinessRows = ruleReadiness(currentMapping, historyMapping, historyItems.length, aliasMap.size);
 
     return {

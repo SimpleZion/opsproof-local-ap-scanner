@@ -1,4 +1,4 @@
-﻿const fs = require("fs");
+const fs = require("fs");
 const path = require("path");
 const { buildSampleScan, writeSampleReport } = require("./sample_report_builder");
 
@@ -56,6 +56,13 @@ const common_china_header_readiness = namespace.fieldMapping.analyzeHeaderReadin
   "付款申请单号",
   "付款进度",
 ]);
+const ambiguous_china_header_readiness = namespace.fieldMapping.analyzeHeaderReadiness([
+  "名称",
+  "编号",
+  "金额",
+  "日期",
+  "状态",
+]);
 const index_html = fs.readFileSync(path.join(root_dir, "index.html"), "utf8");
 const app_js = fs.readFileSync(path.join(root_dir, "src", "app.js"), "utf8");
 
@@ -98,6 +105,10 @@ if (
 
 if (common_china_header_readiness.readyCount < 6 || common_china_header_readiness.blockedCount !== 0) {
   throw new Error("Expected common China AP headers to unlock all readiness rules.");
+}
+
+if (ambiguous_china_header_readiness.readyCount > 1 || ambiguous_china_header_readiness.blockedCount < 4) {
+  throw new Error(`Expected ambiguous Chinese headers to abstain from most rules, got ${JSON.stringify(ambiguous_china_header_readiness)}`);
 }
 
 if (!index_html.includes("data-sample-report-link") || !index_html.includes("sample_duplicate_payment_risk_report_zh.html")) {
@@ -185,7 +196,7 @@ if (!html_report.includes("Self-serve ready") || !html_report.includes("Open USD
 }
 
 if (!sample_proof_report.includes("Duplicate Payment Risk Report") || !sample_proof_report.includes("HOLD")) {
-  throw new Error("Expected demo-sample proof report to include buyer-visible risk output.");
+  throw new Error("Expected fake-sample proof report to include buyer-visible risk output.");
 }
 
 const english_report_banned_snippets = [
@@ -203,7 +214,7 @@ english_report_banned_snippets.forEach((snippet) => {
 });
 
 if (!chinese_sample_proof_report.includes("付款前重复付款风险复核报告") || !chinese_sample_proof_report.includes("当前付款批次中存在完全重复发票")) {
-  throw new Error("Expected Chinese demo-sample proof report to include localized risk output.");
+  throw new Error("Expected Chinese fake-sample proof report to include localized risk output.");
 }
 
 if (!chinese_csv_report.includes("队列") || !chinese_csv_report.includes("风险分数") || !chinese_csv_report.includes("供应商/收款方") || !chinese_csv_report.includes("当前付款批次中存在完全重复发票")) {
@@ -223,7 +234,7 @@ const chinese_report_banned_snippets = [
   "Send only headers",
   "Ask for a first-run",
   "Move to self-serve",
-  "demo rows",
+  "fake rows",
   "redacted rows",
   "payment process",
   "paid_history",
